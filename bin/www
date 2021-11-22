@@ -3,6 +3,22 @@
 /**
  * Module dependencies.
  */
+ const config = require('../config/database');
+ const mongoose = require('mongoose');
+
+// connect to mongodb
+const dbURI = config.database;
+
+//connect to mongoDB
+mongoose.connect(dbURI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then((result) => console.log('connected to db'))
+    .catch((err) => {
+      console.log(err)
+      return err
+    });
 
 var app = require('../app');
 var debug = require('debug')('projectweb:server');
