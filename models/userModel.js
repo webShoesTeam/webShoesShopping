@@ -28,11 +28,11 @@ const userSchema = mongoose.Schema({
     type: String,
     default: 'user'
   },
-  address: {
+  phone:{
     type: String,
     default: ''
   },
-  phone: {
+  address: {
     type: String,
     default: ''
   },

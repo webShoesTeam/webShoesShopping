@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const productSchema = mongoose.Schema({
-  title: {
+  name: {
     type: String,
     trim: true,
     required: true
@@ -10,7 +10,7 @@ const productSchema = mongoose.Schema({
   slug: {
     type: String
   },
-  desc: {
+  detail: {
     type: String,
     trim: true,
     required: true
@@ -23,9 +23,16 @@ const productSchema = mongoose.Schema({
     type: Number,
     required: true
   },
-  image: {
+  nameImage: {
+    type: String
+  },
+  size: {
+    type: String
+  },
+  color:{
     type: String
   }
+
 });
 
 const Product = mongoose.model('Product', productSchema);
