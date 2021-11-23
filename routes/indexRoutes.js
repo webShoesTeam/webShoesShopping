@@ -21,4 +21,9 @@ router.get('/register', function(req, res, next) {
 router.get('/checkout', function(req, res, next) {
   res.render('checkout', { title: 'Shop' });
 });
+
+router.get('/single', function(req, res, next) {
+  res.render('single', { title: 'Single' });
+});
+
 module.exports = router;
