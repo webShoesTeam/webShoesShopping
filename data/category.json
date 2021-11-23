@@ -1,15 +1,12 @@
 {
-    "_id":{"$oid":"619cd957f820effe8e9d6453"},
     "name":"Thể Thao",
     "slug":"thể-thao"
 }
 {
-    "_id":{"$oid":"619cd957f820effe8e9d6452"},
-    "name":"Đơn giản",
+    "name":"Đơn Giản",
     "slug":"đơn-giản"
 }
 {
-    "_id":{"$oid":"619cd957f820effe8e9d6454"},
     "name":"Khác",
     "slug":"khác"
 }

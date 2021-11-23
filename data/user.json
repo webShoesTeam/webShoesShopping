@@ -1,5 +1,4 @@
 {
-    "_id":{"$oid":"6190d1fe5ae32a6fe0b73462"},
     "name":"admin",
     "email":"admin@gmail.com",
     "username":"admin",
@@ -10,7 +9,6 @@
     "cart":[]
 }
 {
-    "_id":{"$oid":"619cd6e0384f79d56b87f289"},
     "name":"user1",
     "email":"user1@gmail.com",
     "username":"user1",
@@ -21,7 +19,6 @@
     "cart":[]
 }
 {
-    "_id":{"$oid":"619cd6e0384f79d56b87f28a"},
     "name":"user2",
     "email":"user2@gmail.com",
     "username":"user2",

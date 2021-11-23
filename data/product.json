@@ -1,5 +1,4 @@
 {
-    "_id":{"$oid":"619cdb34b2c710337ffc5f63"},
     "name":"Giày Thượng Đình",
     "slug":"giày-thượng-đình",
     "detail":"Giày thể thao cực chất",
@@ -10,7 +9,6 @@
     "color":"màu đỏ"
 }
 {
-    "_id":{"$oid":"619cdb34b2c710337ffc5f64"},
     "name":"Dép lào",
     "slug":"dép-lào",
     "detail":"một chiếc dép huyền thoại",
@@ -21,7 +19,6 @@
     "color":"màu xanh"
 }
 {
-    "_id":{"$oid":"619cdb34b2c710337ffc5f62"},
     "name":"Dép lào",
     "slug":"dép-lào",
     "detail":"một chiếc dép huyền thoại",

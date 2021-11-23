@@ -1,5 +1,4 @@
 {
-    "_id":{"$oid":"619cdc43c1a8db711f2b64b6"},
     "userId":{"$oid":"619cd6e0384f79d56b87f289"},
     "date":{"$date":{"$numberLong":"1637562648395"}},
     "status":"completed",
