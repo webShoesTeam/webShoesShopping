@@ -5,7 +5,7 @@
     "detail":"Giày thể thao cực chất",
     "category":"Athletic",
     "price":{"$numberInt":"100000"},
-    "nameImage":"product_images/619cdb34b2c710337ffc5f63",
+    "nameImage":"giaythuongdinhmaudo.jpg",
     "size":"42",
     "color":"màu đỏ"
 }
@@ -16,7 +16,7 @@
     "detail":"một chiếc dép huyền thoại",
     "category":"Đơn Giản",
     "price":{"$numberInt":"25000"},
-    "nameImage":"product_images/619cdb34b2c710337ffc5f64",
+    "nameImage":"deplaomauxanh.jpg",
     "size":"43",
     "color":"màu xanh"
 }
@@ -27,7 +27,7 @@
     "detail":"một chiếc dép huyền thoại",
     "category":"Đơn Giản",
     "price":{"$numberInt":"25000"},
-    "nameImage":"product_images/619cdb34b2c710337ffc5f62",
+    "nameImage":"deplaomaudo.jpg",
     "size":"43",
     "color":"màu đỏ"
 }
