@@ -1,0 +1,35 @@
+{
+    "_id":{"$oid":"619cdc43c1a8db711f2b64b6"},
+    "userId":{"$oid":"619cd6e0384f79d56b87f289"},
+    "date":{"$date":{"$numberLong":"1637562648395"}},
+    "status":"completed",
+    "address": "",
+    "phone": "",
+    "products":[
+        {
+            "_id":{"$oid":"619cdb34b2c710337ffc5f63"},
+            "name":"Giày Thượng Đình",
+            "slug":"giày-thượng-đình",
+            "detail":"Giày thể thao cực chất",
+            "category":"Athletic",
+            "price":{"$numberInt":"100000"},
+            "nameImage":"product_images/619cdb34b2c710337ffc5f63",
+            "size":"42",
+            "color":"màu đỏ",
+            "quantity":{"$numberInt":"2"}
+        },
+        {
+            "_id":{"$oid":"619cdb34b2c710337ffc5f62"},
+            "name":"Dép lào",
+            "slug":"dép-lào",
+            "detail":"một chiếc dép huyền thoại",
+            "category":"Đơn Giản",
+            "price":{"$numberInt":"25000"},
+            "nameImage":"product_images/619cdb34b2c710337ffc5f62",
+            "size":"43",
+            "color":"màu đỏ",
+            "quantity":{"$numberInt":"2"}
+        }
+        ],
+    "total":{"$numberInt":"250000"}
+}

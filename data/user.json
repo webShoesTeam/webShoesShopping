@@ -1,0 +1,33 @@
+{
+    "_id":{"$oid":"6190d1fe5ae32a6fe0b73462"},
+    "name":"admin",
+    "email":"admin@gmail.com",
+    "username":"admin",
+    "password":"$2a$10$a403o21bURwkCZ3FNUIC2e.FU8SanUi57wrjXSk7DcgtMfqtDnHJq",
+    "role":"admin",
+    "phone":"",
+    "address":"",
+    "cart":[]
+}
+{
+    "_id":{"$oid":"619cd6e0384f79d56b87f289"},
+    "name":"user1",
+    "email":"user1@gmail.com",
+    "username":"user1",
+    "password":"_tnD+PqMGq3XyjS3VRy7XSq6rvczdtY3np38h&6CC#7pzG@%A?q??B-5N9NJ",
+    "role":"user",
+    "phone":"8489955802",
+    "address":"",
+    "cart":[]
+}
+{
+    "_id":{"$oid":"619cd6e0384f79d56b87f28a"},
+    "name":"user2",
+    "email":"user2@gmail.com",
+    "username":"user2",
+    "password":"-L@5=P+CZVgntxkktW7LkdnyQGgZ*mCXK75WGFCb?d+byYbg8FyKm4_mjm3-",
+    "role":"user",
+    "phone":"84838215143",
+    "address":"",
+    "cart":[]
+}
