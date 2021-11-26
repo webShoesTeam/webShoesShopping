@@ -14,12 +14,21 @@ router.get('/shop', function(req, res, next) {
   res.render('shop', { title: 'shop' });
 });
 
+router.get('/shop-single', function(req, res, next) {
+  res.render('shop-single', { title: 'shop single' });
+});
+
 router.get('/cart', function(req, res, next) {
   res.render('cart', { title: 'cart' });
 });
 
 router.get('/checkout', function(req, res, next) {
   res.render('checkout', { title: 'checkout' });
+});
+
+
+router.get('/thankyou', function(req, res, next) {
+  res.render('thankyou', { title: 'checkout' });
 });
 
 router.get('/login', function(req, res, next) {
