@@ -201,19 +201,31 @@ x
             <div class="row" data-aos="fade-up">
               <div class="col-md-12 text-center">
                 <div class="site-block-27">
-                  <ul>
+                  <ul id="listpage">
 
                     <li><a href="#">&lt;</a></li>
-                    {{!-- <li class="active"><span>1</span></li> --}}
+                    {{!-- <li class="active"><span>1</span></li>
                     <li><a href="/product/1">1</a></li>
                     <li><a href="/product/2">2</a></li>
                     <li><a href="/product/3">3</a></li>
                     <li><a href="/product/4">4</a></li>
                     <li><a href="/product/5">5</a></li>
-                    <li><a href="#">&gt;</a></li>
+                    <li><a href="#">&gt;</a></li>  --}}
 
-
+                    
                   </ul>
+                  <script>
+                        var uList = document.getElementById("listpage");
+                        for (let i = 1; i<= 3 ; i++) {
+                          var tagLi = document.createElement("li");
+                          var link = document.createElement("a");
+                          link.href = "/product/" + i;
+                          link.textContent = i;
+                          uList.appendChild(tag); 
+                        
+                        }
+                        
+                    </script>
                 </div>
               </div>
 
