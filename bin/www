@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
+
 require('dotenv').config()
 const mongoose = require('mongoose');
 
@@ -14,9 +12,14 @@ mongoose.connect(dbURI, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
-    .then(async (result) => {
-      await console.log('connected to db')
-      var app = require('../app');
+    .then((result) => {
+    console.log('connected to db')
+    
+    /**
+     * Module dependencies.
+     */
+
+    var app = require('../app');
     var debug = require('debug')('projectweb:server');
     var http = require('http');
 

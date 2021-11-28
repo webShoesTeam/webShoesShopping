@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const slugify = require('slugify');
+// const slugify = require('slugify');
 
 const productSchema = mongoose.Schema({
   name: {
@@ -35,6 +35,6 @@ const productSchema = mongoose.Schema({
 
 });
 
-const Product = mongoose.model('Product', productSchema);
+const Product = mongoose.model('product', productSchema);
 
 module.exports = Product;

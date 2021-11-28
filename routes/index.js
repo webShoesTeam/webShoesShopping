@@ -11,12 +11,12 @@ router.get('/about', function(req, res, next) {
 });
 
 router.get('/shop', function(req, res, next) {
-  res.render('shop', { title: 'shop' });
+  res.render('product', { title: 'shop' });
 });
 
-router.get('/shop-single', function(req, res, next) {
-  res.render('shop-single', { title: 'shop single' });
-});
+// router.get('/shop-single', function(req, res, next) {
+//   res.render('shop-single', { title: 'shop single' });
+// });
 
 router.get('/cart', function(req, res, next) {
   res.render('cart', { title: 'cart' });
