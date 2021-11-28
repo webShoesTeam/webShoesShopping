@@ -41,8 +41,9 @@
               </div>
             </div>
             <div class="row mb-5">
+              {{!-- implement product here --}}
 
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+              {{!-- <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                 <div class="block-4 text-center border">
                   <figure class="block-4-image">
                     <a href="/shop-single"><img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
@@ -53,20 +54,25 @@
                     <p class="text-primary font-weight-bold">$50</p>
                   </div>
                 </div>
-              </div>
+              </div> --}}
+              
+              {{#each products}}
               <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                 <div class="block-4 text-center border">
                   <figure class="block-4-image">
-                    <a href="/shop-single"><img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                    <a href="/product/detail/{{this.id}}"><img src="/images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
                   </figure>
                   <div class="block-4-text p-4">
-                    <h3><a href="/shop-single">Corater</a></h3>
+x
+                    <h3><a href="/product/detail/{{this.id}}">{{this.name}}</a></h3>
                     <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
+                    <p class="text-primary font-weight-bold">{{this.price}}$</p>
+
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+              {{/each}}
+              {{!-- <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                 <div class="block-4 text-center border">
                   <figure class="block-4-image">
                     <a href="/shop-single"><img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
@@ -188,24 +194,41 @@
                     <p class="text-primary font-weight-bold">$50</p>
                   </div>
                 </div>
-              </div>
+              </div> --}}
 
 
             </div>
             <div class="row" data-aos="fade-up">
               <div class="col-md-12 text-center">
                 <div class="site-block-27">
-                  <ul>
+                  <ul id="listpage">
+
                     <li><a href="#">&lt;</a></li>
-                    <li class="active"><span>1</span></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&gt;</a></li>
+                    {{!-- <li class="active"><span>1</span></li>
+                    <li><a href="/product/1">1</a></li>
+                    <li><a href="/product/2">2</a></li>
+                    <li><a href="/product/3">3</a></li>
+                    <li><a href="/product/4">4</a></li>
+                    <li><a href="/product/5">5</a></li>
+                    <li><a href="#">&gt;</a></li>  --}}
+
+                    
                   </ul>
+                  <script>
+                        var uList = document.getElementById("listpage");
+                        for (let i = 1; i<= 3 ; i++) {
+                          var tagLi = document.createElement("li");
+                          var link = document.createElement("a");
+                          link.href = "/product/" + i;
+                          link.textContent = i;
+                          uList.appendChild(tag); 
+                        
+                        }
+                        
+                    </script>
                 </div>
               </div>
+
             </div>
           </div>
 
