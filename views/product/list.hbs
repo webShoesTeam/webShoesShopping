@@ -216,12 +216,20 @@ x
                   </ul>
                   <script>
                         var uList = document.getElementById("listpage");
-                        for (let i = 1; i<= 3 ; i++) {
+                        var numPage = 3
+                        for (let i = 1; i<= numPage + 1 ; i++) {
                           var tagLi = document.createElement("li");
                           var link = document.createElement("a");
-                          link.href = "/product/" + i;
-                          link.textContent = i;
-                          uList.appendChild(tag); 
+                          if (i == numPage + 1) {
+                            link.href = "#" + i;
+                            link.textContent = ">";
+                          } else {
+                            link.href = "/product/" + i;
+                            link.textContent = i;
+                          }
+                          tagLi.appendChild(link);
+
+                          uList.appendChild(tagLi); 
                         
                         }
                         
