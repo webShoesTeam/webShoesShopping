@@ -1,9 +1,14 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const userController = require("../components/user/userController")
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+
+
+
+router.get('/profile', userController.getProfile);
+
+
+router.post('/update_avt/:id', userController.updateImage);
 
 module.exports = router;

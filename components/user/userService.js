@@ -9,6 +9,14 @@ exports.findByUsername = async (username) => {
     return user;
 };
 
+exports.findById = async (id) => {
+    const user = await userModel.findOne({
+        _id: id
+    }).lean();
+    
+    return user;
+};
+
 exports.validPassword = async (password, user) => {
     console.log("user pass: " + user.password);
     const passwordHashed = await bcrypt.hash(password, 10);
@@ -28,4 +36,14 @@ exports.createUser = async (name, email, phone, address, username, password) => 
         password: passwordHashed,
         role: 'user',
     })
+}
+
+exports.updateImage = async (newLink, id) => {
+    const user = await userModel.findOne({
+        _id: id
+    });
+    if (user) {
+        user.image = newLink;
+        await user.save();
+    }
 }
