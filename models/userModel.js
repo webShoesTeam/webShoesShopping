@@ -46,7 +46,11 @@ const userSchema = mongoose.Schema({
         default: 1
       }
     }
-  ]
+  ],
+  image: {
+    type: String,
+    default: 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png',
+  },
 });
 
 const User = mongoose.model('User', userSchema);

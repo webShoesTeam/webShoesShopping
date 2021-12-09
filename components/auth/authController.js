@@ -37,24 +37,24 @@ exports.postRegister =  async (req, res) => {
     const address = await req.body.address;
 
     
-    // check('name', 'Name is required!').notEmpty();
-    // check('email', 'Email is required!').isEmail();
-    // check('phone', 'Email is required!').notEmpty();
-    // check('address', 'Email is required!').notEmpty();
-    // check('username', 'Username is required!').notEmpty();
-    // check('password', 'Password is required!').notEmpty();
-    // check('password2', 'Passwords do not match!').equals(password);
+    check('name', 'Name is required!').notEmpty();
+    check('email', 'Email is required!').isEmail();
+    check('phone', 'Email is required!').notEmpty();
+    check('address', 'Email is required!').notEmpty();
+    check('username', 'Username is required!').notEmpty();
+    check('password', 'Password is required!').notEmpty();
+    check('password2', 'Passwords do not match!').equals(password);
 
-    // const errors = validationResult(req);
+    const errors = validationResult(req);
 
-    // if (!errors.isEmpty()) {
-    //     console.log("loi empty validation");
-    //     res.render('register', {
-    //         errors: errors,
-    //         title: 'Register'
-    //     }); 
-    // }
-    // else {
+    if (!errors.isEmpty()) {
+        console.log("loi empty validation");
+        res.render('register', {
+            errors: errors,
+            title: 'Register'
+        }); 
+    }
+    else {
         const userFound = await userService.findByUsername(username);
         console.log("into create register");
         
@@ -73,5 +73,5 @@ exports.postRegister =  async (req, res) => {
         }
 
         
-    //}
+    }
 }

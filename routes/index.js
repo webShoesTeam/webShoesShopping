@@ -34,8 +34,8 @@ router.get('/thankyou', function(req, res, next) {
 //   res.render('register', { title: 'register' });
 // });
 
-router.get('/profile', function(req, res, next) {
-  res.render('profile', { title: 'profile' });
-});
+// router.get('/user', function(req, res, next) {
+//   res.render('profile', { title: 'profile' });
+// });
 
 module.exports = router;
