@@ -229,11 +229,11 @@
       else{
         var s = {{current}} - 1
         if(window.location.href.search("&") == -1){
-          link.href  = "/product?page=" + s;
+          link.href  = "/product/Children?page=" + s;
         }
         else{
           str = window.location.href.substring(window.location.href.search("&"))
-          link.href  = `/product?page=${s}` + str;
+          link.href  = `/product/Children?page=${s}` + str;
         }
         link.textContent = "<";
       }
@@ -253,11 +253,11 @@
       }
       else{
         if(window.location.href.search("&") == -1){
-          link.href = "/product?page=" + i;
+          link.href = "/product/Children?page=" + i;
         }
         else{
           str = window.location.href.substring(window.location.href.search("&"))
-          link.href  = `/product?page=${i}` + str;
+          link.href  = `/product/Children?page=${i}` + str;
         }
         
         link.textContent = i;
@@ -278,11 +278,11 @@
       else{
           var s = {{current}} + 1
           if(window.location.href.search("&") == -1){
-            link.href = "/product?page=" + s;
+            link.href = "/product/Children?page=" + s;
           }
           else{
             str = window.location.href.substring(window.location.href.search("&"))
-            link.href  = `/product?page=${s}` + str;
+            link.href  = `/product/Children?page=${s}` + str;
           }
           link.textContent = ">";
       }
