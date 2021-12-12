@@ -11,6 +11,7 @@ exports.detail = (id) =>{
     return Product.findOne({_id: id})
 }
 
+
 exports.count = () => { return Product.countDocuments()}
 
 exports.count2 = (sizes,colors) => { return Product.countDocuments({$or:[{color: colors},{size:sizes}]})}
@@ -37,3 +38,10 @@ exports.category = (page,perPage,cate) => {
     .skip((perPage * page) - perPage)
     .limit(perPage)
 }
+
+exports.findById = async (id) =>{
+    return await Product.findOne({_id: id})
+}
+
+exports.count = () => { return Product.countDocuments()}
+

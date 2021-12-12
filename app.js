@@ -12,7 +12,7 @@ const productRouter = require('./components/product/productRouter')
 const authRouter = require('./components/auth/authRouter');
 const passport = require('./passport');
 const authGuard = require('./middlewares/authGuard');
-
+const cartRouter = require('./components/cart/cartRouter');
 const app = express();
 
 // view engine setup
@@ -31,7 +31,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req, res, next) {
+  console.log('in use local')
   res.locals.user = req.user;
+  console.log("local: \n" + JSON.stringify(res.locals));
+  res.locals.session = req.session;
   next();
 })
 
@@ -39,6 +42,8 @@ app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/product',productRouter)
 app.use('/users', usersRouter);
+app.use('/cart', cartRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
