@@ -24,12 +24,23 @@ exports.getCart = function(req, res) {
 }
 
 exports.addItem = async function(req, res, next) {
-    var productId = req.params.id;
+    // var productId = req.params.id;
+    // const productId = req.query.id;
+    // const quantity = req.query.quantity;
+    const productId = req.body.id;
+    const quantity = Number(req.body.quantity);
+
+    console.log("\nid: " + productId);
+    console.log("req.body: \n" + JSON.stringify(req.body));
+
     var cart = new Cart(req.session.cart ? req.session.cart : {});
     const product = await productService.findById(productId);
-    cart.add(product, productId);
+    cart.add(product, productId, quantity);
     req.session.cart = cart;
-    res.redirect('/');
+    console.log("session.cart: " + JSON.stringify(req.session.cart));
+    res.redirect('/product/detail/' + productId);
+    //res.send(cart);
+    //res.status(201).json(cart);
   };
 
 exports.removeItem = function(req, res, next) {

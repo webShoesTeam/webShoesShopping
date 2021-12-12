@@ -9,45 +9,51 @@
 
 <div class="site-section">
     <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-        <img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{products.id}}/{{products.nameImage}}" alt="Image" class="img-fluid">
-        </div>
-        <div class="col-md-6">
-        <h2 class="text-black">{{products.name}}</h2>
-        <p>{{products.detail}}</p>
-        {{!-- <p class="mb-4">Ex numquam veritatis debitis minima quo error quam eos dolorum quidem perferendis. Quos repellat dignissimos minus, eveniet nam voluptatibus molestias omnis reiciendis perspiciatis illum hic magni iste, velit aperiam quis.</p> --}}
-        <p><strong class="text-primary h4">{{products.price}}đ</strong></p>
-        <div class="mb-1 d-flex">
-            <label for="option-sm" class="d-flex mr-3 mb-3">
-            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes" value="{{products.size}}" checked="checked"</span> <span class="d-inline-block text-black">{{products.size}}</span>
-            </label>
-            {{!-- <label for="option-md" class="d-flex mr-3 mb-3">
-            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Medium</span>
-            </label>
-            <label for="option-lg" class="d-flex mr-3 mb-3">
-            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>
-            </label>
-            <label for="option-xl" class="d-flex mr-3 mb-3">
-            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>
-            </label> --}}
-        </div>
-        <div class="mb-5">
-            <div class="input-group mb-3" style="max-width: 120px;">
-            <div class="input-group-prepend">
-            <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{products.id}}/{{products.nameImage}}" alt="Image" class="img-fluid">
             </div>
-            <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-            <div class="input-group-append">
-            <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+            <div class="col-md-6">
+                <h2 class="text-black">{{products.name}}</h2>
+                <p>{{products.detail}}</p>
+                {{!-- <p class="mb-4">Ex numquam veritatis debitis minima quo error quam eos dolorum quidem perferendis. Quos repellat dignissimos minus, eveniet nam voluptatibus molestias omnis reiciendis perspiciatis illum hic magni iste, velit aperiam quis.</p> --}}
+                <p><strong class="text-primary h4">{{products.price}}đ</strong></p>
+                <div class="mb-1 d-flex">
+                    <label for="option-sm" class="d-flex mr-3 mb-3">
+                    <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes" value="{{products.size}}" checked="checked"</span> <span class="d-inline-block text-black">{{products.size}}</span>
+                    </label>
+                    {{!-- <label for="option-md" class="d-flex mr-3 mb-3">
+                    <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Medium</span>
+                    </label>
+                    <label for="option-lg" class="d-flex mr-3 mb-3">
+                    <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>
+                    </label>
+                    <label for="option-xl" class="d-flex mr-3 mb-3">
+                    <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>
+                    </label> --}}
+                </div>
+                <div class="mb-5">
+                    <div class="input-group mb-3" style="max-width: 120px;">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                        </div>
+                        <input type="text" id="number-to-add" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                        </div>
+                    </div>
+                </div>
+                <form class="form-addtocart" action="/cart/add" method="post">
+                    <input class="input-quantity" id="input-qty" type="text" name="quantity" value="1" hidden >
+                    <input class="input-id" type="text" name="id" value="{{products._id}}" hidden >
+                    {{!-- <input type="text" name="id" value="{{products._id}}" hidden> --}}
+                    {{!-- <p><a href="/cart/add/{{products._id}}" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p> --}}
+                    <input class="buy-now btn btn-sm btn-primary" value="Add To Cart2" type="submit">
+                </form>
+                
+
             </div>
         </div>
-
-        </div>
-        <p><a href="/cart/add/{{products._id}}" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
-
-        </div>
-    </div>
     </div>
 </div>
 
@@ -126,3 +132,23 @@
     </div>
     </div>
 </div> --}}
+
+
+<script>
+   {{!-- var getQuantity = function() {	
+       console.log("change")
+       $(".form-control").change(function() {
+			$('.input-quantity').val($('.form-control').val());
+            console.log("quantity: " + $('input-quantity').val());
+            console.log("quantity form: " + $('form-control').val());
+       })
+
+      
+	};
+	
+	getQuantity (); --}}
+    $(".form-control").change(function(){
+                alert("The text has been changed.");
+    });
+   
+</script>

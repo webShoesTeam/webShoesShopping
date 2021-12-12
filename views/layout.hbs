@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="/fonts/icomoon/style.css">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/magnific-popup.css">
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/css/aos.css">
 
     <link rel="stylesheet" href="/css/style.css">
-
+<script src="/js/jquery-3.3.1.min.js"></script>
   </head>
 <body>
 <!--header section start -->
@@ -54,7 +54,9 @@
                   <li>
                     <a href="/cart" class="site-cart">
                       <span class="icon icon-shopping_cart"></span>
-                      <span class="count">2</span>
+                      
+                      <span id="total-in-cart" class="count" style="display: none;" onchange="displayCountCart();">{{session.cart.totalItems}}</span>
+                      
                     </a>
                   </li> 
                   <li class="d-inline-block d-md-none ml-md-0"><a href="/cart" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
@@ -93,7 +95,7 @@
     </div>
 </footer>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
+    {{!-- <script src="/js/jquery-3.3.1.min.js"></script> --}}
     <script src="/js/jquery-ui.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -103,6 +105,21 @@
 
     
     <script src="/js/main.js"></script>
-
+    <script>
+      var displayCountCart = function() {	        
+        
+          var item = document.getElementById("total-in-cart");
+          var count = item.textContent;
+          {{!-- console.log("item count: " + count); --}}
+          {{!-- var totalItems = {{session.cart.totalItems}};	 --}}
+          {{!-- console.log("total" + totalItems) --}}
+          if (count == "0" || count == "") {
+            item.style.display = "none";
+          } else {
+            item.style.display = "block";
+          } 
+      }
+      displayCountCart();
+    </script>
 </body>
 </html>

@@ -13,6 +13,7 @@ const authRouter = require('./components/auth/authRouter');
 const passport = require('./passport');
 const authGuard = require('./middlewares/authGuard');
 const cartRouter = require('./components/cart/cartRouter');
+const Cart = require('./components/cart/cartModel');
 const app = express();
 
 // view engine setup
@@ -34,7 +35,9 @@ app.use(function(req, res, next) {
   console.log('in use local')
   res.locals.user = req.user;
   console.log("local: \n" + JSON.stringify(res.locals));
+  req.session.cart = new Cart(req.session.cart ? req.session.cart : {});
   res.locals.session = req.session;
+
   next();
 })
 
