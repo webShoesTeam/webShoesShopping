@@ -39,10 +39,15 @@ exports.list = async function(req,res) {
 
 }
 
-
 exports.detail = async function(req,res){
     const products = await productService.detail(req.params.id);
-    res.render('product/detail', { products }); 
+    const comments = await productService.getProductWithComment(products._id)
+    const count = await productService.countComment(products._id);
+    res.render('product/detail', { 
+        products,
+        comments,
+        count,
+    }); 
 }
 
 exports.category = async function(req,res) {
@@ -117,4 +122,21 @@ exports.category = async function(req,res) {
     else{
         res.redirect('/product');
     }
+}
+
+exports.postComment = async function(req,res){
+    if(req.user){
+        const comment = await productService.postComment(req.body.username,req.params.productID,req.body.content,req.user._id)
+        res.status(201).json(comment);
+    }
+    else{
+        if(req.body.username == ""){
+            req.body.username = "Một người lạ"
+        }
+        const comment = await productService.postComment(req.body.username,req.params.productID,req.body.content)
+        res.status(201).json(comment);
+    }
+
+    // res.redirect(`/product/detail/${req.body.productID}`)
+
 }

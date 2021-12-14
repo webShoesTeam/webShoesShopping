@@ -198,4 +198,23 @@ jQuery(document).ready(function($) {
 	siteMagnificPopup();
 
 
+	$(`#comment-form input[type=submit]`).on('click',function(event){
+		event.preventDefault();
+		console.log("Hello")
+		
+		$.post(`/product/${$(`#product-id`).val()}/comment`,{
+			content: $(`#comment-content`).val(),
+			username: $(`#comment-username`).val(),
+		},function (data){
+			const commentTemplate = Handlebars.compile(document.getElementById("comment-template").innerHTML)
+			console.log(commentTemplate)
+			const commentHtml = commentTemplate(data)
+			$(`#comment-list`).prepend(commentHtml);
+		}).fail( function(data){
+			console.log("fail",data)
+		})
+	
+	})
+	
 });
+

@@ -8,5 +8,6 @@ router.get('/detail/:id', productController.detail);
 
 router.get('/:category',productController.category);
 
+router.post('/:productID/comment',productController.postComment)
 
 module.exports = router;
