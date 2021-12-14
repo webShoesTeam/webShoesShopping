@@ -50,17 +50,26 @@
     </div>
         
         <div class="be-comment-block">
-
+        {{#if user}}
+        <form class="form-block" method="post" >
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">									
+                    <div class="form-group" id= "comment-form">
+                        <input class="form-input" type="hidden" id= "comment-username" name="username" placeholder="{{user.username}}" value="{{user.username}}">
+                        <input type="hidden" name="productID" value="{{products.id}}" id = "product-id">
+                        <input type= "text" name= "content" id= "comment-content" class="form-input" required="" placeholder="Please your comment here"></input>
+                        <input  class="btn btn-primary pull-right" type = "submit" value= "Comment">
+                    </div>
+                </div>
+            </div>
+        </form>
+        {{else}}
         <form class="form-block" method="post" >
             <div class="row">
                 <div class="col-xs-12 col-sm-4">
                     <div class="form-group fl_icon">
                         <div class="icon"><i class="fa fa-user"></i></div>
-                        {{#if user}}
-                        <input class="form-input" type="text" id= "comment-username" name="username" placeholder="{{user.username}}" value="{{user.username}}">
-                        {{else}}
                         <input class="form-input" type="text" id= "comment-username" name="username" placeholder="Your name" >
-                        {{/if}}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-8">									
@@ -72,12 +81,14 @@
                 </div>
             </div>
         </form>
+
+        {{/if}}
         <h1 class="comments-title">Comments ({{count}})</h1>
         <div id="comment-list">
         {{#each comments}}
         <div class="be-comment">
             <div class="be-img-comment">
-                <img src="/users/update_avt/{{this.userID}}" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">	
+                <img src="https://res.cloudinary.com/dgci6plhk/image/upload/user/{{this.userID}}/{{this.username}}.jpg" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">	
                 {{!-- <a href="blog-detail-2.html">
                     <img src="/users/update_avt/{{this.userID}}" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">
                 </a> --}}
@@ -148,7 +159,7 @@
 <script id= "comment-template" type="text/x-handlebars"> 
     <div class="be-comment">
         <div class="be-img-comment">
-            <img src="/users/update_avt/\{{userID}}" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">	
+            <img src="https://res.cloudinary.com/dgci6plhk/image/upload/user/\{{_id}}/\{{username}}.jpg" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">	
         </div>
         <div class="be-comment-content">
             
@@ -156,7 +167,7 @@
                     <a href="blog-detail-2.html">\{{username}}</a>
                     </span>
                 <span class="be-comment-time">
-                    Vừa bình luận
+                    Vừa bình luân
                 </span>
 
             <p class="be-comment-text">
