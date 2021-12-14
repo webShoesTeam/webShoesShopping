@@ -151,6 +151,10 @@ jQuery(document).ready(function($) {
 	};
 	sitePlusMinus();
 
+
+	
+
+
 	// var addToCart = function() {
     //     $('.buy-now').on('click', function(e){
     //         e.preventDefault();

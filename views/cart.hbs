@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each cart}}
+                {{#each session.cart.items}}
                     <tr>    
                     <td class="product-thumbnail">
                         <img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{this.item._id}}/{{this.item.nameImage}}" alt="Image" class="img-fluid">
@@ -37,11 +37,11 @@
                     <td>
                         <div class="input-group mb-3" style="max-width: 120px;">
                         <div class="input-group-prepend">
-                            <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>                        
+                            <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/cart/removeone/{{this.item._id}}'">&minus;</button>                     
                         </div>
                         <input type="text" class="form-control text-center" value="{{this.quantity}}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                            <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/cart/add/{{this.item._id}}'">&plus;</button>
                         </div>
                         </div>
 
@@ -142,7 +142,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                <button class="btn btn-primary btn-lg py-3 btn-block" onclick="window.location.href='/checkout'">Proceed To Checkout</button>
+                <button class="btn btn-primary btn-lg py-3 btn-block" onclick="window.location.href='/cart/checkout'">Proceed To Checkout</button>
                 </div>
             </div>
             </div>

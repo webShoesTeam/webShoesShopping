@@ -17,12 +17,24 @@ module.exports = function Cart(oldCart) {
 
     }
 
-    this.removeOne = function(oldItem, id) {
+    this.addOne = function(id) {
         var cartItem = this.items[id];
         if (cartItem) {
             cartItem = this.items[id];
-            if (cartItem.quantity > 0) {
-                cartItem.price = oldItem.price;
+           
+            cartItem.quantity++;
+            cartItem.totalMoney = cartItem.item.price * cartItem.quantity;
+            this.totalItems++;
+            this.totalMoney += cartItem.item.price;
+            
+        }
+    }
+
+    this.removeOne = function(id) {
+        var cartItem = this.items[id];
+        if (cartItem) {
+            cartItem = this.items[id];
+            if (cartItem.quantity > 1) {
                 cartItem.quantity--;
                 cartItem.totalMoney = cartItem.item.price * cartItem.quantity;
                 this.totalItems--;

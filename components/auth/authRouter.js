@@ -7,10 +7,12 @@ const authGuard = require('../../middlewares/authGuard');
 router.get('/login', authGuard.notLogin, authController.login);
 
 // POST login
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login?wrong-password',
-}));
+// router.post('/login', passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/login?wrong-password',
+// }));
+
+router.post('/login', authController.postLogin);
 
 // GET register
 router.get('/register', authGuard.notLogin, authController.getRegister);

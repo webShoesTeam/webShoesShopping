@@ -1,6 +1,5 @@
 const Cart = require('./cartModel');
 const productService = require('../product/productService');
-const billService = require('../bill/billService');
 
 
 exports.getCart = function(req, res) {
@@ -17,10 +16,9 @@ exports.getCart = function(req, res) {
         console.log("session:\n" + JSON.stringify(req.session));
         console.log("session cart:\n" + JSON.stringify(req.session.cart));
         const cart = new Cart(req.session.cart);
-        console.log("\ncart:\n" + JSON.stringify(cart));
         return res.render('cart', {
             title: "Cart",
-            //cart: cart.getAllItems(), 
+            cart: cart.getAllItems(), 
         })
     }
 }
@@ -45,15 +43,6 @@ exports.addItem = async function(req, res, next) {
     //res.status(201).json(cart);
   };
 
-exports.addOneItem = function(req, res, next) {
-    var productId = req.params.id;
-    var cart = new Cart(req.session.cart ? req.session.cart : {});
-
-    cart.addOne(productId)
-    req.session.cart = cart;
-    res.redirect('/cart');
-};
-
 exports.removeOneItem = function(req, res, next) {
     var productId = req.params.id;
     var cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -70,51 +59,4 @@ exports.removeItem = function(req, res, next) {
     cart.remove(productId);
     req.session.cart = cart;
     res.redirect('/cart');
-};
-
-exports.getCheckout = async function(req, res) {
-
-    res.render('checkout', { title: 'checkout' });
-}
-
-
-
-/*
- * post checkout
- */
-exports.postCheckout = async function(req, res) {
-    if (!req.user) {
-        res.redirect('/login?redirect=cart/checkout')
-                    
-       
-    }
-
-    const cart = new Cart(req.session.cart ? req.session.cart : {});
-
-    if (cart.totalItems == 0) {
-        redirect('cart/checkout?message=cart is empty');
-    }
-
-    let bill = {};
-   
-    bill.userId = req.user._id;
-    bill.userName = req.body.name || req.user.name;
-    bill.email = req.body.email || req.user.email;
-    bill.address = req.body.address || req.user.address;
-    bill.phone = req.body.phone || req.user.phone;
-    bill.notes = req.body.notes;
-    bill.products = cart.getAllItems();
-    bill.subtotal = cart.totalMoney;
-    bill.total = cart.totalMoney;
-    // bill.total = Math.max(total - promotion.value + ship, 0);
-
-    // bill = await Bill.create(bill);
-    
-    req.session.cart = new Cart({});
-    const newBill = await billService.createNewBill(bill);
-    console.log("\n\nBill: " + JSON.stringify(newBill));
-    res.render('bill', {
-        title: 'Billing',
-        bill: newBill,
-    });
 };
