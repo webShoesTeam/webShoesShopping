@@ -1,4 +1,4 @@
-const x = document.getElementsByName('filter');
+// const x = document.getElementsByName('filter');
 const btns = document.querySelectorAll(".mr-2");
 const pagi = document.querySelectorAll(".listpaginate")
 
@@ -99,6 +99,3 @@ addeventColor(arrayColor);
 
 const arraySize = ["Small","Medium","Large","Extra"]
 addeventSize(arraySize);
-
-
-
