@@ -5,7 +5,7 @@ exports.list = async function(req,res) {
     const page = req.query.page || 1;
     const size = req.query.Size;
     const color = req.query.Color;
-    const sort = req.query.sort || 1;
+    const sort = req.query.sort || -1;
     var nameSearch = req.query.search;
     if(nameSearch == undefined){
         nameSearch = "";
@@ -51,7 +51,7 @@ exports.detail = async function(req,res){
     const perPage = 6;
     const page = req.query.page || 1;
     const category = req.query.category;
-    var productList = await productService.category(1,perPage,category," ");
+    var productList = await productService.category(1,perPage,category,-1," ");
     //find not current product
     productList = productList.filter(function( obj ) {
         return obj._id != req.params.id;
@@ -75,6 +75,7 @@ exports.category = async function(req,res) {
     const size = req.query.Size;
     const color = req.query.Color;
     const category = req.params.category;
+    const sort = req.query.sort || -1;
     var nameSearch = req.query.search;
     if(nameSearch == undefined){
         nameSearch = "";
@@ -88,8 +89,8 @@ exports.category = async function(req,res) {
         if(typeof color == "string"){
             colorN = 1;
         }
-        const count = await productService.count3(category,nameSearch);
-        const products = await  productService.category(page,perPage,category,nameSearch);
+        const count = await productService.count3(category,sort,nameSearch);
+        const products = await  productService.category(page,perPage,category,sort,nameSearch);
         res.render(`category/${category}`, { 
             products,
             size:sizeN,
@@ -112,8 +113,8 @@ exports.category = async function(req,res) {
             colorN = 1;
         }
         if(category != undefined){
-            const count = await productService.count4(size,color,category,nameSearch);
-            const products = await  productService.search2(size,color,category,page,perPage,nameSearch);
+            const count = await productService.count4(size,color,category,sort,nameSearch);
+            const products = await  productService.search2(size,color,category,page,perPage,sort,nameSearch);
             res.render(`category/${category}`, { 
                 products,
                 size:sizeN,
@@ -128,7 +129,7 @@ exports.category = async function(req,res) {
         else{
             if(size != undefined || color != undefined){
                 const count = await productService.count2(size,color,nameSearch);
-                const products = await  productService.search(size,color,page,perPage,nameSearch);
+                const products = await  productService.search(size,color,page,perPage,sort,nameSearch);
                 res.render('product/list', { 
                     products,
                     size:sizeN,
@@ -150,7 +151,7 @@ exports.category = async function(req,res) {
 
 exports.postComment = async function(req,res){
     if(req.user){
-        const comment = await productService.postComment(req.body.username,req.params.productID,req.body.content,req.user._id)
+        const comment = await productService.postComment(req.body.username,req.params.productID,req.body.content,req.user._id,req.user.image)
         res.status(201).json(comment);
     }
     else{

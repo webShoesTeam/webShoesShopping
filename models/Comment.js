@@ -16,8 +16,10 @@ const CommentSchema = mongoose.Schema({
   },
   createAt:{
     type: Date
+  },
+  image:{
+    type: String
   }
-  
 });
 
 const Comment = mongoose.model('comment', CommentSchema);
