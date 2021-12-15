@@ -118,5 +118,5 @@ exports.postCheckout = async function(req, res) {
     //     bill: newBill,
     // });
     
-    res.redirect('/bill/' + newBill._id);
+    res.redirect('/bill/detail/' + newBill._id);
 };

@@ -5,8 +5,8 @@ const billController = require('./billController');
 
 
 
-router.get('/:id', billController.getBillWithIdBill);
-router.get('/history/:id', billController.getBillWithUserId);
+router.get('/detail/:id', billController.getBillWithIdBill);
+router.get('/history', billController.getBillWithUserId);
 
 
 
