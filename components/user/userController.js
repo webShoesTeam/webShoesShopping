@@ -33,7 +33,7 @@ exports.updateImage = async (req, res) => {
             console.log("field: \n\n" + JSON.stringify(fields));
             cloudinary.uploader.upload(files.image.filepath, { public_id: `user/${user._id}/${user.username}`,overwrite: true, width: 192, height: 192, crop: "scale", fetch_format: "jpg"})
             
-            const newLink = "https://res.cloudinary.com/dgci6plhk/image/upload/v1638968024/user/" + user._id + "/" + user.username + ".jpg";
+            const newLink = "https://res.cloudinary.com/dgci6plhk/image/upload/v1/user/" + user._id + "/" + user.username + ".jpg";
             //const newLink = "https://res.cloudinary.com/mernteam/image/upload/v1638468308/mern/users/" + user._id + "/" + user.nameImage + ".jpg"
             userService.updateImage(newLink, id);
             
