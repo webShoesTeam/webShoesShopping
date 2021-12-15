@@ -13,4 +13,5 @@ router.get('/removeone/:id', cartController.removeOneItem);
 router.get('/add/:id', cartController.addOneItem);
 router.get('/checkout', cartController.getCheckout);
 router.post('/checkout', cartController.postCheckout);
+
 module.exports = router;

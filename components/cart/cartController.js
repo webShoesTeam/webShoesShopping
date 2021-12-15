@@ -112,9 +112,11 @@ exports.postCheckout = async function(req, res) {
     
     req.session.cart = new Cart({});
     const newBill = await billService.createNewBill(bill);
-    console.log("\n\nBill: " + JSON.stringify(newBill));
-    res.render('bill', {
-        title: 'Billing',
-        bill: newBill,
-    });
+    // console.log("\n\nBill: " + JSON.stringify(newBill));
+    // res.render('bill', {
+    //     title: 'Billing',
+    //     bill: newBill,
+    // });
+    
+    res.redirect('/bill/' + newBill._id);
 };

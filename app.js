@@ -14,6 +14,7 @@ const passport = require('./passport');
 const authGuard = require('./middlewares/authGuard');
 const cartRouter = require('./components/cart/cartRouter');
 const Cart = require('./components/cart/cartModel');
+const billRouter = require('./components/bill/billRouter');
 const app = express();
 
 // view engine setup
@@ -46,6 +47,7 @@ app.use('/', authRouter);
 app.use('/product',productRouter)
 app.use('/users', usersRouter);
 app.use('/cart', cartRouter);
+app.use('/bill', billRouter);
 
 
 // catch 404 and forward to error handler
