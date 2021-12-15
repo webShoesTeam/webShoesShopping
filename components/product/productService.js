@@ -1,6 +1,8 @@
 
 const Product = require('../../models/productModel');
 
+const Comment = require('../../models/Comment')
+
 exports.list = (page,perPage) => {
     return Product.find()
     .skip((perPage * page) - perPage)
@@ -37,3 +39,22 @@ exports.category = (page,perPage,cate) => {
     .skip((perPage * page) - perPage)
     .limit(perPage)
 }
+
+exports.postComment = (username,productID,content,userID) =>{
+    return new Comment({
+        userID: userID,
+        username: username,
+        productID: productID,
+        content: content,
+        createAt: new Date()
+    }).save();
+}
+
+exports.getProductWithComment = (id,page,perPage)=> {
+    return Comment.find({productID: id})
+    .sort({'createAt': -1})
+    .skip((perPage * page) - perPage)
+    .limit(perPage);
+}
+
+exports.countComment = (id) => { return Comment.countDocuments({productID: id})}

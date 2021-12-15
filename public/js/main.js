@@ -198,4 +198,37 @@ jQuery(document).ready(function($) {
 	siteMagnificPopup();
 
 
+	$(`#comment-form input[type=submit]`).on('click',function(event){
+		event.preventDefault();
+		
+		$.post(`/product/${$(`#product-id`).val()}/comment`,{
+			content: $(`#comment-content`).val(),
+			username: $(`#comment-username`).val(),
+		},function (data){
+			const commentTemplate = Handlebars.compile(document.getElementById("comment-template").innerHTML)
+			const commentHtml = commentTemplate(data)
+			$(`#comment-list`).prepend(commentHtml);
+		}).fail( function(data){
+			console.log("fail",data)
+		})
+	
+	})
+
+	// $(`#listcomment a`).on('click',function(event){
+	// 	event.preventDefault();
+	// 	console.log($(this).attr("href"))
+
+	// 	$.get($(this).attr("href"),function (data){
+	// 		console.log(data);
+	// 		$('#comment-list').empty()
+	// 		for(i = 0 ; i < data.length;i++){
+	// 			const commentTemplate = Handlebars.compile(document.getElementById("comment-template").innerHTML)
+	// 			const commentHtml = commentTemplate(data[i])
+	// 			$(`#comment-list`).prepend(commentHtml);
+	// 		}
+	// 	})
+
+	// })
+	
 });
+

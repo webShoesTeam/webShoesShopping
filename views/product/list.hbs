@@ -60,10 +60,10 @@
               <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                 <div class="block-4 text-center border">
                   <figure class="block-4-image">
-                    <a href="/product/detail/{{this.id}}"><img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{this.id}}/{{this.nameImage}}" alt="Image placeholder" class="img-fluid"></a>
+                    <a href="/product/detail/{{this.id}}?page=1&category={{this.category}}"><img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{this.id}}/{{this.nameImage}}" alt="Image placeholder" class="img-fluid"></a>
                   </figure>
                   <div class="block-4-text p-4">
-                    <h3><a href="/product/detail/{{this.id}}">{{this.name}}</a></h3>
+                    <h3><a href="/product/detail/{{this.id}}?page=1&category={{this.category}}">{{this.name}}</a></h3>
                     <p class="mb-0">Finding perfect products</p>
                     <p class="text-primary font-weight-bold">{{this.price}}đ</p>
 
@@ -289,8 +289,8 @@
       tagLi.appendChild(link);
       uList.appendChild(tagLi); 
     
-  </script>
-        <script  src="/js/filter.js">
+    </script>
+    <script  src="/js/filter.js">
     </script>
 
     </div>
