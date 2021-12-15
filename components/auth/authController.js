@@ -1,6 +1,7 @@
 const userService = require('../user/userService');
 const bcrypt = require('bcrypt');
 const {check, validationResult} = require('express-validator');
+const passport = require('../../passport');
 
 exports.login = (req, res) => {
     //res.render('auth/view/login');
@@ -13,6 +14,21 @@ exports.login = (req, res) => {
     });
 };
 
+exports.postLogin = function (req, res, next) {
+    console.log("\n\n\n\nreq: \n" + JSON.stringify(req.query));
+    var prev = req.query.redirect;
+
+    console.log("redirect: " + prev);
+    if (typeof prev === 'undefined') {
+        prev = '/'
+    } else {
+        prev = '/' + prev;
+    }
+    passport.authenticate('local', {
+        successRedirect: prev,
+        failureRedirect: '/login?username or password is wrong',
+    })(req, res, next);
+};
 
 exports.getLogout = (req, res) => {
     req.logout();    

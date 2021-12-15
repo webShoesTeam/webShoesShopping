@@ -6,6 +6,8 @@
     </div>
 </div>
 
+
+
 <div class="site-section">
     <div class="container">
     <div class="row mb-5">
@@ -23,7 +25,33 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                {{#each session.cart.items}}
+                    <tr>    
+                    <td class="product-thumbnail">
+                        <img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{this.item._id}}/{{this.item.nameImage}}" alt="Image" class="img-fluid">
+                    </td>
+                    <td class="product-name">
+                        <h2 class="h5 text-black">{{this.item.name}}</h2>
+                    </td>
+                    <td>    {{this.item.price}}</td>
+                    <td>
+                        <div class="input-group mb-3" style="max-width: 120px;">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/cart/removeone/{{this.item._id}}'">&minus;</button>                     
+                        </div>
+                        <input type="text" class="form-control text-center" value="{{this.quantity}}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/cart/add/{{this.item._id}}'">&plus;</button>
+                        </div>
+                        </div>
+
+                    </td>
+                    <td>{{this.totalMoney}}</td>
+                    <td><a href="/cart/remove/{{this.item._id}}" class="btn btn-primary btn-sm">X</a></td>
+                    </tr>
+                {{/each}}
+
+                {{!-- <tr>
                 <td class="product-thumbnail">
                     <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
                 </td>
@@ -69,7 +97,7 @@
                 </td>
                 <td>$49.00</td>
                 <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
-                </tr>
+                </tr> --}}
             </tbody>
             </table>
         </div>
@@ -114,7 +142,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                <button class="btn btn-primary btn-lg py-3 btn-block" onclick="window.location.href='/checkout'">Proceed To Checkout</button>
+                <button class="btn btn-primary btn-lg py-3 btn-block" onclick="window.location.href='/cart/checkout'">Proceed To Checkout</button>
                 </div>
             </div>
             </div>

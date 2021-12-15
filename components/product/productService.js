@@ -19,7 +19,12 @@ exports.search = (sizes,colors,page,perPage,sort,search) =>{
     .sort({'price': sort})
 }
 
+
+
+exports.count = () => { return Product.countDocuments()}
+
 exports.count2 = (sizes,colors,search) => { return Product.countDocuments({$or:[{color: colors},{size:sizes}], name: { $regex: search }})}
+
 
 exports.detail = (id) =>{
     return Product.findOne({_id: id})
@@ -56,7 +61,14 @@ exports.getProductWithComment = (id,page,perPage)=> {
     return Comment.find({productID: id})
     .sort({'createAt': -1})
     .skip((perPage * page) - perPage)
-    .limit(perPage);
+
+    .limit(perPage)
 }
 
+exports.findById = async (id) =>{
+    return await Product.findOne({_id: id})
+}
+
+
 exports.countComment = (id) => { return Comment.countDocuments({productID: id})}
+

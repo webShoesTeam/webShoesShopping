@@ -13,7 +13,7 @@
                 <div class="login-title">
                      <h4 class="title">Registered Customers</h4>
                    <div class="comments-area">
-                      <form action='/login' method="post">
+                      <form id="form-login"  action='/login' method="post">
                           {{#if wrongPassword}}
                           <p>Username or password incorrect</p>
                           {{/if}}
@@ -41,3 +41,11 @@
         </div>
 </div>
 <br>
+
+
+
+<script>
+    var form = document.getElementById("form-login");
+    form.action = window.location.href;
+    form.method = "post";
+</script>
