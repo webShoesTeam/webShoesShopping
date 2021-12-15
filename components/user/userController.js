@@ -33,7 +33,7 @@ exports.updateImage = async (req, res) => {
             console.log("field: \n\n" + JSON.stringify(fields));
             cloudinary.uploader.upload(files.image.filepath, { public_id: `user/${user._id}/${user.username}`,overwrite: true, width: 192, height: 192, crop: "scale", fetch_format: "jpg"})
             
-            const newLink = "https://res.cloudinary.com/dgci6plhk/image/upload/v1/user/" + user._id + "/" + user.username + ".jpg";
+            const newLink = "https://res.cloudinary.com/dgci6plhk/image/upload/user/" + user._id + "/" + user.username + ".jpg";
             //const newLink = "https://res.cloudinary.com/mernteam/image/upload/v1638468308/mern/users/" + user._id + "/" + user.nameImage + ".jpg"
             userService.updateImage(newLink, id);
             
@@ -63,30 +63,42 @@ exports.saveUpdate = async (req, res) => {
     const password = await req.body.password;
     const password2 = await req.body.password2;
     const address = await req.body.address;
-
     
-    check('name', 'Name is required!').notEmpty();
-    check('email', 'Email is required!').isEmail();
-    check('phone', 'Email is required!').notEmpty();
-    check('address', 'Email is required!').notEmpty();
-    check('username', 'Username is required!').notEmpty();
-    check('password', 'Password is required!').notEmpty();
-    check('password2', 'Passwords do not match!').equals(password);
-
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        console.log("loi empty validation");
-        res.redirect("/users/profile");
+    if (password2 != password) {
+        res.redirect('/users/profile?wrong-passconfirm');
     }
-    else {
-       try {
+    const isRightPass = await userService.validPassword(password, req.user);
+
+    // const errors = validationResult(req);
+
+    // if (!errors.isEmpty()) {
+    //     console.log("loi empty validation");
+    //     res.redirect("/users/profile");
+    // }
+    // else {
+    //    try {
+    //         await userService.updateUser(id, name, email, phone, address, username, password);
+    //         //console.log("body: \n" + JSON.stringify(req.body));
+    //         // res.locals.messages = "Update successfull"
+    //         res.redirect('/users/profile');
+    //    } catch (Exception) {
+    //         res.redirect('/users/profile');
+    //    }
+    // }
+
+    if (isRightPass==true) {
+       
+        try {
             await userService.updateUser(id, name, email, phone, address, username, password);
-            //console.log("body: \n" + JSON.stringify(req.body));
-            // res.locals.messages = "Update successfull"
             res.redirect('/users/profile');
-       } catch (Exception) {
-            res.redirect('/users/profile');
-       }
+        } catch (Exception) {
+          
+            res.redirect('/users/profile');;
+        }
+    } else {
+        res.render('profile', {
+            title: "Profile",
+            mess: "Wrong password",
+        })
     }
 }

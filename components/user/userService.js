@@ -18,26 +18,14 @@ exports.findById = async (id) => {
 };
 
 exports.validPassword = async (password, user) => {
-    // console.log("\n\nuser pass: " + user.password);
-    // const passwordHashed = await bcrypt.hash(password, 10);
-    // bcrypt.hash(password, 10, function(err, hash) {
-    //     // Store hash in your password DB.
-    //     console.log("user pass hashed2: " + hash);
-    // });
 
-    // console.log("user pass before hashed: " + password);
-    // console.log("user pass hashed: " + passwordHashed);
-    // console.log("user pass hashed2: " + passwordHashed2);
     return await bcrypt.compare(password, user.password);
     //return passwordHashed == user.password;
 }
 
 exports.createUser = async (name, email, phone, address, username, password) => {
     const passwordHashed = await bcrypt.hash(password, 10);
-    // console.log("passHashed: " + passwordHashed);
-    bcrypt.hash(password, 10).then(function(hash) {
-        // console.log("passregister: " + hash);
-    });
+    
     return userModel.create({
         name: name,
         email: email,
@@ -61,6 +49,7 @@ exports.updateImage = async (newLink, id) => {
 
 exports.updateUser = async (id, name, email, phone, address, username, password) => {
     const passwordHashed = await bcrypt.hash(password, 10);
+    
     await userModel.findByIdAndUpdate({_id: id}, {
         name: name,
         email: email,
