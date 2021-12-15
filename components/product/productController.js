@@ -40,13 +40,24 @@ exports.list = async function(req,res) {
 }
 
 exports.detail = async function(req,res){
+    const perPage = 6;
+    const page = req.query.page || 1;
+    const category = req.query.category;
+    var productList = await productService.category(1,perPage,category);
+    //find not current product
+    productList = productList.filter(function( obj ) {
+        return obj._id != req.params.id;
+    });
     const products = await productService.detail(req.params.id);
-    const comments = await productService.getProductWithComment(products._id)
+    const comments = await productService.getProductWithComment(products._id,page,perPage)
     const count = await productService.countComment(products._id);
-    res.render('product/detail', { 
+    res.render('product/detail', {
+        productList, 
         products,
         comments,
         count,
+        pages: Math.ceil(count / perPage),
+        current: page,
     }); 
 }
 
@@ -65,9 +76,7 @@ exports.category = async function(req,res) {
         if(typeof color == "string"){
             colorN = 1;
         }
-        console.log(category)
         const count = await productService.count3(category);
-        console.log(count)
         const products = await  productService.category(page,perPage,category);
         res.render(`category/${category}`, { 
             products,
@@ -139,4 +148,11 @@ exports.postComment = async function(req,res){
 
     // res.redirect(`/product/detail/${req.body.productID}`)
 
+}
+
+exports.listComment = async function(req,res){
+    const perPage = 6;
+    const page = req.query.page || 1;
+    const comments = await productService.getProductWithComment(req.params.productID,page,perPage)
+    res.status(201).json(comments);
 }

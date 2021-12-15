@@ -50,8 +50,11 @@ exports.postComment = (username,productID,content,userID) =>{
     }).save();
 }
 
-exports.getProductWithComment = (id)=> {
-    return Comment.find({productID: id}).sort({'createAt': -1});
+exports.getProductWithComment = (id,page,perPage)=> {
+    return Comment.find({productID: id})
+    .sort({'createAt': -1})
+    .skip((perPage * page) - perPage)
+    .limit(perPage);
 }
 
 exports.countComment = (id) => { return Comment.countDocuments({productID: id})}

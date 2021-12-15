@@ -110,7 +110,16 @@
             </div>
         </div>
         {{/each}}
+        <div class="row" data-aos="fade-up" >
+            <div class="col-md-12 text-right">
+            <div class="site-block-27">
+                <ul id="listcomment">
+                </ul>
+                
+            </div>
+            </div>
         </div>
+
 
         {{!-- <div class="be-comment">
             <div class="be-img-comment">	
@@ -167,7 +176,7 @@
                     <a href="blog-detail-2.html">\{{username}}</a>
                     </span>
                 <span class="be-comment-time">
-                    Vừa bình luân
+                    New
                 </span>
 
             <p class="be-comment-text">
@@ -178,78 +187,117 @@
 
 </script>
 
-{{!-- <div class="site-section block-3 site-blocks-2 bg-light">
+<script>
+    var uList = document.getElementById("listcomment");
+    var numPage = 3;
+    var i = 1;  
+    var tagLi = document.createElement("li");
+    var link = document.createElement("a");
+    link.id = "comment-page";
+    if({{current}} == null){
+    {{current}} == 1
+    }
+    //
+    if({{current}} >= 3){
+    i = {{current}} - 2;
+    }
+
+    // <
+    if({{current}} == 1){
+    link.href  = "#";
+    link.textContent = "<";
+    }
+    else{
+    var s = {{current}} - 1
+    if(window.location.href.search("&") == -1){
+        link.href  = `/product/detail/{{products.id}}?page=` + s;
+    }
+    else{
+        str = window.location.href.substring(window.location.href.search("&"))
+        link.href  = `/product/detail/{{products.id}}?page=${s}` + str;
+    }
+    link.textContent = "<";
+    }
+    tagLi.appendChild(link);
+    uList.appendChild(tagLi);
+
+    //center
+    
+    for(;i <= {{current}} + 2 && i <= {{pages}};i++){
+    tagLi = document.createElement("li");
+    link = document.createElement("a");
+    link.id = "comment-page";
+    if(i == {{current}}){
+    tagLi.classList.add('active')
+    link = document.createElement("span");
+    link.textContent = i;
+    }
+    else{
+    if(window.location.href.search("&") == -1){
+        link.href = "/product/detail/{{products.id}}?page=" + i;
+    }
+    else{
+        str = window.location.href.substring(window.location.href.search("&"))
+        link.href  = `/product/detail/{{products.id}}?page=${i}` + str;
+    }
+    
+    link.textContent = i;
+    }
+    tagLi.appendChild(link);
+    uList.appendChild(tagLi); 
+    }
+
+
+    // >
+    tagLi = document.createElement("li");
+    link = document.createElement("a");
+    link.id = "comment-page";
+    if ({{current}} == {{pages}}) {
+        link.href  = "#";
+        link.textContent = ">";
+    }
+    else{
+        var s = {{current}} + 1
+    if(window.location.href.search("&") == -1){
+        link.href  = `/product/detail/{{products.id}}?page=` + s;
+    }
+    else{
+        str = window.location.href.substring(window.location.href.search("&"))
+        link.href  = `/product/detail/{{products.id}}?page=${s}` + str;
+    }
+        link.textContent = ">";
+    }
+    tagLi.appendChild(link);
+    uList.appendChild(tagLi); 
+    
+  </script>
+
+<div class="site-section block-3 site-blocks-2 bg-light">
     <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-7 site-section-heading text-center pt-4">
-        <h2>Featured Products</h2>
+        <h2>Related Products</h2>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
         <div class="nonloop-block-3 owl-carousel">
+            {{#each productList}}
             <div class="item">
             <div class="block-4 text-center">
                 <figure class="block-4-image">
-                <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
+                <a href="/product/detail/{{this.id}}?page=1&category={{this.category}}"><img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{this.id}}/{{this.nameImage}}"  alt="Image placeholder" class="img-fluid"></a>
                 </figure>
                 <div class="block-4-text p-4">
-                <h3><a href="#">Tank Top</a></h3>
+                <h3><a href="/product/detail/{{this.id}}?page=1&category={{this.category}}">{{this.name}}</a></h3>
                 <p class="mb-0">Finding perfect t-shirt</p>
-                <p class="text-primary font-weight-bold">$50</p>
+                <p class="text-primary font-weight-bold">{{this.price}}đ</p>
                 </div>
             </div>
             </div>
-            <div class="item">
-            <div class="block-4 text-center">
-                <figure class="block-4-image">
-                <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                </figure>
-                <div class="block-4-text p-4">
-                <h3><a href="#">Corater</a></h3>
-                <p class="mb-0">Finding perfect products</p>
-                <p class="text-primary font-weight-bold">$50</p>
-                </div>
-            </div>
-            </div>
-            <div class="item">
-            <div class="block-4 text-center">
-                <figure class="block-4-image">
-                <img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid">
-                </figure>
-                <div class="block-4-text p-4">
-                <h3><a href="#">Polo Shirt</a></h3>
-                <p class="mb-0">Finding perfect products</p>
-                <p class="text-primary font-weight-bold">$50</p>
-                </div>
-            </div>
-            </div>
-            <div class="item">
-            <div class="block-4 text-center">
-                <figure class="block-4-image">
-                <img src="images/cloth_3.jpg" alt="Image placeholder" class="img-fluid">
-                </figure>
-                <div class="block-4-text p-4">
-                <h3><a href="#">T-Shirt Mockup</a></h3>
-                <p class="mb-0">Finding perfect products</p>
-                <p class="text-primary font-weight-bold">$50</p>
-                </div>
-            </div>
-            </div>
-            <div class="item">
-            <div class="block-4 text-center">
-                <figure class="block-4-image">
-                <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                </figure>
-                <div class="block-4-text p-4">
-                <h3><a href="#">Corater</a></h3>
-                <p class="mb-0">Finding perfect products</p>
-                <p class="text-primary font-weight-bold">$50</p>
-                </div>
-            </div>
-            </div>
+            {{/each}}
         </div>
         </div>
     </div>
     </div>
-</div> --}}
+</div>
