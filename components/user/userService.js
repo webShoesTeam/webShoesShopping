@@ -9,6 +9,13 @@ exports.findByUsername = async (username) => {
     return user;
 };
 
+exports.findByEmail = async (email) => {
+    const user = await userModel.findOne({
+        email: email
+    }).lean();
+    return user;
+};
+
 exports.findById = async (id) => {
     const user = await userModel.findOne({
         _id: id
