@@ -4,6 +4,7 @@ const {check, validationResult} = require('express-validator');
 const passport = require('../../passport');
 const jwt = require('jsonwebtoken');
 const sendMail = require('./sendMail');
+const userModel = require('../../models/userModel');
 
 const {CLIENT_URL} = process.env;
 
@@ -104,11 +105,9 @@ exports.postRegister = async (req, res) => {
                 const newUser = {
                     name, email, phone, username, password: passwordHash, address
                 }
-                console.log(newUser);
-
                 const activation_token = createActivationToken(newUser);
 
-                const url = `${CLIENT_URL}/user/activate/${activation_token}`
+                const url = `${CLIENT_URL}/activation/${activation_token}`
                 sendMail(email, url, "Verify your email address")
 
                 res.json({ msg: "Register Success! Please activate ur email to start." });
@@ -116,6 +115,33 @@ exports.postRegister = async (req, res) => {
                 return res.status(500).json({ msg: err.message })
             }
         }
+    }
+}
+
+exports.activateEmail = async (req, res) => {
+    try {
+        const {activation_token} = req.body
+        const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
+
+        const {name, email, phone, address, username, password} = user
+
+        const check = await userService.findByEmail(email);
+        if(check) {
+            return res.status(400).json({msg: "This email already existed!"});
+        }
+        // const userNew = await userService.createUser(name, email, phone, address, username, password);
+        // res.redirect('/login');
+        const newUser = new userModel({
+            name, email, username, password, phone, address
+        })
+
+        await newUser.save()
+
+        console.log("Account has been activated!")
+        res.json({msg: "Account has been activated!"})
+
+    } catch (err) {
+        return res.status(500).json({msg: err.message})
     }
 }
 

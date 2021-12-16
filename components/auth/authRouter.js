@@ -19,6 +19,7 @@ router.get('/register', authGuard.notLogin, authController.getRegister);
 
 // POST register
 router.post('/register', authController.postRegister);
+router.get('/activation', authController.activateEmail);
 
 // GET logout
 router.get('/logout', authController.getLogout);
