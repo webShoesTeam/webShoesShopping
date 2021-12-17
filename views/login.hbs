@@ -1,4 +1,4 @@
- <div class="login">
+<div class="login">
         <div class="wrap">
               <div class="col_1_of_login span_1_of_login">
                   <h4 class="title">New Customers</h4>
@@ -48,4 +48,12 @@
     var form = document.getElementById("form-login");
     form.action = window.location.href;
     form.method = "post";
+</script>
+
+
+<script>
+    if({{flag}} == 1){
+        alert("Account has been activated!")
+        {{flag}} = 0;
+    }
 </script>

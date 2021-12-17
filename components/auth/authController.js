@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const sendMail = require('./sendMail');
 const userModel = require('../../models/userModel');
 
+
 const {CLIENT_URL} = process.env;
 
 exports.login = (req, res) => {
@@ -41,7 +42,7 @@ exports.getLogout = (req, res) => {
     res.redirect('/');
 };
 
-exports.getRegister = (req, res) => {
+exports.getRegister = async(req, res) => {
     res.render('register', {
         title: 'Register',
     })
@@ -129,6 +130,7 @@ exports.activateEmail = async (req, res) => {
         if(check) {
             return res.status(400).json({msg: "This email already existed!"})
         }
+        
         // const userNew = await userService.createUser(name, email, phone, address, username, password);
         // res.redirect('/login');
         const newUser = new userModel({
@@ -138,7 +140,11 @@ exports.activateEmail = async (req, res) => {
         await newUser.save()
 
         console.log("Account has been activated!")
-        res.json({msg: "Account has been activated!"})
+        // res.json({msg: "Account has been activated!"})
+        res.render('login', {
+            title: "Login",
+            flag: 1
+        });
 
     } catch (err) {
         return res.status(500).json({msg: err.message})
