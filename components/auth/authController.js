@@ -120,8 +120,7 @@ exports.postRegister = async (req, res) => {
 
 exports.activateEmail = async (req, res) => {
     try {
-        console.log("Into ativate");
-        const {activation_token} = req.body
+        const activation_token = req.params.token
         const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
 
         const {name, email, phone, address, username, password} = user
