@@ -6,7 +6,6 @@ const authGuard = require('../../middlewares/authGuard');
 
 router.get('/login', authGuard.notLogin, authController.login);
 
-router.get('/forget', authGuard.notLogin, authController.forget);
 // POST login
 // router.post('/login', passport.authenticate('local', {
 //     successRedirect: '/',
@@ -24,6 +23,9 @@ router.get('/activation/:token', authController.activateEmail);
 
 // GET logout
 router.get('/logout', authController.getLogout);
+
+router.get('/forget', authGuard.notLogin, authController.forget);
+router.post('/forget', authGuard.notLogin, authController.postForget)
 
 
 module.exports = router;
