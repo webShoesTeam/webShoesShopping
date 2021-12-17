@@ -55,7 +55,6 @@ exports.updateImage = async (req, res) => {
 exports.saveUpdate = async (req, res) => {
     const id = req.params.id;  
     
-    
     const name = await req.body.name;
     const email = await req.body.email;
     const phone = await req.body.phone;
@@ -63,42 +62,86 @@ exports.saveUpdate = async (req, res) => {
     const password = await req.body.password;
     const password2 = await req.body.password2;
     const address = await req.body.address;
+
     
     if (password2 != password) {
         res.redirect('/users/profile?wrong-passconfirm');
     }
     const isRightPass = await userService.validPassword(password, req.user);
 
-    // const errors = validationResult(req);
 
-    // if (!errors.isEmpty()) {
-    //     console.log("loi empty validation");
-    //     res.redirect("/users/profile");
-    // }
-    // else {
-    //    try {
-    //         await userService.updateUser(id, name, email, phone, address, username, password);
-    //         //console.log("body: \n" + JSON.stringify(req.body));
-    //         // res.locals.messages = "Update successfull"
-    //         res.redirect('/users/profile');
-    //    } catch (Exception) {
-    //         res.redirect('/users/profile');
-    //    }
-    // }
+    if(password !== password2) {
+        console.log("Password do not match");               
+            res.render('profile', {
+                title: "profile", 
+            });
+            return;
+    }
+    
+    check('name', 'Name is required!').notEmpty();
+    check('email', 'Email is required!').isEmail();
+    check('phone', 'Email is required!').notEmpty();
+    check('address', 'Email is required!').notEmpty();
+    check('username', 'Username is required!').notEmpty();
+    check('password', 'Password is required!').notEmpty();
+    // check('password2', 'Passwords do not match!').equals(password);
 
-    if (isRightPass==true) {
+
+    const errors = validationResult(req);
+
+
+
+
+  // Duc xem thu cho nay co giup dc j ko (toan)
+//     if (isRightPass==true) {
        
-        try {
-            await userService.updateUser(id, name, email, phone, address, username, password);
-            res.redirect('/users/profile');
-        } catch (Exception) {
+//         try {
+//             await userService.updateUser(id, name, email, phone, address, username, password);
+//             res.redirect('/users/profile');
+//         } catch (Exception) {
           
-            res.redirect('/users/profile');;
+//             res.redirect('/users/profile');;
+//         }
+//     } else {
+//         res.render('profile', {
+//             title: "Profile",
+//             mess: "Wrong password",
+//         })
+  
+
+    if (!errors.isEmpty()) {
+        console.log("loi empty validation");
+        res.redirect("/users/profile");
+    }
+    else {
+        const usernameFound = await userService.findByUsername(username);
+        const emailFound = await userService.findByEmail(email);
+
+        if (usernameFound && (id != usernameFound._id)) { 
+            console.log("Into username")                            
+            res.render('profile', {
+                title: "profile", 
+                errors: "Username or email existed",
+            });
+        } 
+        else if (emailFound && (id != emailFound._id)) {
+            console.log("Into email")                            
+                             
+            res.render('profile', {
+                title: "profile", 
+                errors: "Username or email existed",
+            });
         }
-    } else {
-        res.render('profile', {
-            title: "Profile",
-            mess: "Wrong password",
-        })
+        else {
+            try {
+                await userService.updateUser(id, name, email, phone, address, username, password);
+                //console.log("body: \n" + JSON.stringify(req.body));
+                // res.locals.messages = "Update successfull"
+                res.redirect('/users/profile');
+            } catch (Exception) {
+                res.redirect('/users/profile');
+            }
+        }
+
     }
 }
