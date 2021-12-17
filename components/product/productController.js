@@ -56,7 +56,8 @@ exports.detail = async function(req,res){
     productList = productList.filter(function( obj ) {
         return obj._id != req.params.id;
     });
-    const products = await productService.detail(req.params.id);
+    let products = await productService.detail(req.params.id);
+    products = await productService.updateView(products);
     const comments = await productService.getProductWithComment(products._id,page,perPage)
     const count = await productService.countComment(products._id);
     res.render('product/detail', {
@@ -91,6 +92,7 @@ exports.category = async function(req,res) {
         }
         const count = await productService.count3(category,sort,nameSearch);
         const products = await  productService.category(page,perPage,category,sort,nameSearch);
+      
         res.render(`category/${category}`, { 
             products,
             size:sizeN,
@@ -115,6 +117,7 @@ exports.category = async function(req,res) {
         if(category != undefined){
             const count = await productService.count4(size,color,category,sort,nameSearch);
             const products = await  productService.search2(size,color,category,page,perPage,sort,nameSearch);
+            
             res.render(`category/${category}`, { 
                 products,
                 size:sizeN,
@@ -130,6 +133,7 @@ exports.category = async function(req,res) {
             if(size != undefined || color != undefined){
                 const count = await productService.count2(size,color,nameSearch);
                 const products = await  productService.search(size,color,page,perPage,sort,nameSearch);
+                
                 res.render('product/list', { 
                     products,
                     size:sizeN,

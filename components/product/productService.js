@@ -81,3 +81,14 @@ exports.findById = async (id) =>{
 
 exports.countComment = (id) => { return Comment.countDocuments({productID: id})}
 
+exports.updateView = async (product) => {
+    if (product.view) {
+        product.view = product.view + 1;
+    } else {
+        product.view = 1;
+    }
+    console.log("view before: " + product.view);
+    await product.save();
+    console.log("view after: " + product.view);
+    return product;
+}
