@@ -49,7 +49,9 @@ app.use('/users', usersRouter);
 app.use('/cart', cartRouter);
 app.use('/bill', billRouter);
 
-
+app.get('/test', (req, res) => {
+  res.render('product/single')
+} )
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
