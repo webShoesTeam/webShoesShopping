@@ -140,11 +140,7 @@ exports.activateEmail = async (req, res) => {
         await newUser.save()
 
         console.log("Account has been activated!")
-        // res.json({msg: "Account has been activated!"})
-        res.render('login', {
-            title: "Login",
-            flag: 1
-        });
+        res.json({msg: "Account has been activated!"})
 
     } catch (err) {
         return res.status(500).json({msg: err.message})
