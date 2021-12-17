@@ -65,5 +65,16 @@ exports.updateUser = async (id, name, email, phone, address, username, password)
         username: username,
         password: passwordHashed,
     });
-   
 }
+
+exports.updatePassword = async (id, password) => {
+    const passwordHashed = await bcrypt.hash(password, 10);
+    
+    const user = await userModel.findOne({
+        _id: id
+    });
+    if (user) {
+        user.password = passwordHashed;
+        await user.save();
+    }
+};

@@ -25,7 +25,8 @@ router.get('/activation/:token', authController.activateEmail);
 router.get('/logout', authController.getLogout);
 
 router.get('/forget', authGuard.notLogin, authController.forget);
-router.post('/forget', authGuard.notLogin, authController.postForget)
+router.post('/forget', authGuard.notLogin, authController.postForget);
+router.get('/reset/:token', authController.resetPassword);
 
 
 module.exports = router;
