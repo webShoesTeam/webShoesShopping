@@ -15,7 +15,6 @@ exports.login = (req, res) => {
     if(req.query.success != undefined && req.query.success == 1){
         var flag = 1;
     }
-    console.log(flag);
     const wrongPassword = req.query['wrong-password'] !== undefined;
     console.log("req.user\n\n" + JSON.stringify(req.user));
     res.render('login', {
@@ -23,6 +22,12 @@ exports.login = (req, res) => {
         wrongPassword,
         user: req.user,
         flag: flag,
+    });
+};
+
+exports.forget = (req, res) => {
+    res.render('forgetPassword', {
+        title: "forgetPassword",
     });
 };
 
@@ -146,8 +151,8 @@ exports.activateEmail = async (req, res) => {
         await newUser.save()
 
         console.log("Account has been activated!")
-        res.json({msg: "Account has been activated!"})
-        redirect("/login?success=1")
+        // res.json({msg: "Account has been activated!"})
+        res.redirect("/login?success=1")
 
     } catch (err) {
         return res.status(500).json({msg: err.message})
