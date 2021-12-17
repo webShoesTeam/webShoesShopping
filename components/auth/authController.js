@@ -11,12 +11,18 @@ const {CLIENT_URL} = process.env;
 
 exports.login = (req, res) => {
     //res.render('auth/view/login');
+    var flag = 0;
+    if(req.query.success != undefined && req.query.success == 1){
+        var flag = 1;
+    }
+    console.log(flag);
     const wrongPassword = req.query['wrong-password'] !== undefined;
     console.log("req.user\n\n" + JSON.stringify(req.user));
     res.render('login', {
         title: "Login",
         wrongPassword,
         user: req.user,
+        flag: flag,
     });
 };
 
@@ -141,6 +147,7 @@ exports.activateEmail = async (req, res) => {
 
         console.log("Account has been activated!")
         res.json({msg: "Account has been activated!"})
+        redirect("/login?success=1")
 
     } catch (err) {
         return res.status(500).json({msg: err.message})
