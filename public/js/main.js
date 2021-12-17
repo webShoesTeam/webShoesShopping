@@ -147,7 +147,6 @@ jQuery(document).ready(function($) {
 			$(this).closest('.input-group').find('.form-control').val(parseInt($(this).closest('.input-group').find('.form-control').val()) + 1);
 			$( ".form-control" ).change();
 		});
-		
 	};
 	sitePlusMinus();
 

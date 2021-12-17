@@ -33,7 +33,7 @@ exports.updateImage = async (req, res) => {
             console.log("field: \n\n" + JSON.stringify(fields));
             cloudinary.uploader.upload(files.image.filepath, { public_id: `user/${user._id}/${user.username}`,overwrite: true, width: 192, height: 192, crop: "scale", fetch_format: "jpg"})
             
-            const newLink = "https://res.cloudinary.com/dgci6plhk/image/upload/v1/user/" + user._id + "/" + user.username + ".jpg";
+            const newLink = "https://res.cloudinary.com/dgci6plhk/image/upload/user/" + user._id + "/" + user.username + ".jpg";
             //const newLink = "https://res.cloudinary.com/mernteam/image/upload/v1638468308/mern/users/" + user._id + "/" + user.nameImage + ".jpg"
             userService.updateImage(newLink, id);
             
@@ -63,6 +63,13 @@ exports.saveUpdate = async (req, res) => {
     const password2 = await req.body.password2;
     const address = await req.body.address;
 
+    
+    if (password2 != password) {
+        res.redirect('/users/profile?wrong-passconfirm');
+    }
+    const isRightPass = await userService.validPassword(password, req.user);
+
+
     if(password !== password2) {
         console.log("Password do not match");               
             res.render('profile', {
@@ -79,7 +86,28 @@ exports.saveUpdate = async (req, res) => {
     check('password', 'Password is required!').notEmpty();
     // check('password2', 'Passwords do not match!').equals(password);
 
+
     const errors = validationResult(req);
+
+
+
+
+  // Duc xem thu cho nay co giup dc j ko (toan)
+//     if (isRightPass==true) {
+       
+//         try {
+//             await userService.updateUser(id, name, email, phone, address, username, password);
+//             res.redirect('/users/profile');
+//         } catch (Exception) {
+          
+//             res.redirect('/users/profile');;
+//         }
+//     } else {
+//         res.render('profile', {
+//             title: "Profile",
+//             mess: "Wrong password",
+//         })
+  
 
     if (!errors.isEmpty()) {
         console.log("loi empty validation");
@@ -114,5 +142,6 @@ exports.saveUpdate = async (req, res) => {
                 res.redirect('/users/profile');
             }
         }
+
     }
 }

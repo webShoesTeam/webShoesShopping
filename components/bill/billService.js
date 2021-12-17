@@ -10,11 +10,11 @@ exports.createNewBill = async (billData) => {
 }
 
 exports.getBillWithIdBill = async (billId) => {
-    const bill = await Bill.findById({_id: billId});
+    const bill = await Bill.findOne({_id: billId});
     return bill;
 }
 
 exports.getBillWithUserId = async (userId) => {
-    const bills = await Bill.find({userId: userId});
+    const bills = await Bill.find({userId: userId}).sort({createdAt: -1});
     return bills;
 }

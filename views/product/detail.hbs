@@ -20,7 +20,55 @@
         <div class="row">
             <div class="col-md-6">
                 <img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{products.id}}/{{products.nameImage}}" alt="Image" class="img-fluid">
+                
+                <div class="block-3 site-blocks-2 bg-light">
+                    <div class="container">   
+                        <div class="row">
+                            {{!-- <div class="col-md-12"> --}}
+                            <div class="col-12">
+                            <div class="nonloop-block-3 owl-carousel">
+                                {{!-- <div class="item">
+                                    <div class="block-4 text-center">
+                                        <figure class="block-4-image">
+                                        <img src="/images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
+                                        </figure>                                
+                                    </div>
+                                </div>
+                                <div class="item">
+                                <div class="block-4 text-center">
+                                    <figure class="block-4-image">
+                                    <img src="/images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
+                                    </figure>
+                                    
+                                </div>
+                                </div>
+                                <div class="item">
+                                <div class="block-4 text-center">
+                                    <figure class="block-4-image">
+                                    <img src="/images/cloth_2.jpg" alt="Image placeholder" class="img-fluid">
+                                    </figure>
+                                    
+                                </div>
+                                </div>--}}
+                                
+                                {{#each products.galleryImageLinks}}
+                                    <div class="item">
+                                        <div class="block-4 text-center">
+                                            <figure class="block-4-image">
+                                            <img src="{{this}}" alt="Image placeholder" class="img-fluid">
+                                            </figure>
+                                            
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
             <div class="col-md-6">
                 <h2 class="text-black">{{products.name}}</h2>
                 <p>{{products.detail}}</p>
@@ -30,15 +78,7 @@
                     <label for="option-sm" class="d-flex mr-3 mb-3">
                     <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes" value="{{products.size}}" checked="checked"</span> <span class="d-inline-block text-black">{{products.size}}</span>
                     </label>
-                    {{!-- <label for="option-md" class="d-flex mr-3 mb-3">
-                    <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Medium</span>
-                    </label>
-                    <label for="option-lg" class="d-flex mr-3 mb-3">
-                    <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>
-                    </label>
-                    <label for="option-xl" class="d-flex mr-3 mb-3">
-                    <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>
-                    </label> --}}
+                
                 </div>
                 <div class="mb-5">
                     <div class="input-group mb-3" style="max-width: 120px;">
@@ -73,7 +113,7 @@
                     <div class="form-group" id= "comment-form">
                         <input class="form-input" type="hidden" id= "comment-username" name="username" placeholder="{{user.username}}" value="{{user.username}}">
                         <input type="hidden" name="productID" value="{{products.id}}" id = "product-id">
-                        <input type= "text" name= "content" id= "comment-content" class="form-input" required="" placeholder="Please your comment here"></input>
+                        <input type= "text" name= "content" id= "comment-content" class="form-input" required placeholder="Please your comment here">
                         <input  class="btn btn-primary pull-right" type = "submit" value= "Comment">
                     </div>
                 </div>
@@ -91,7 +131,7 @@
                 <div class="col-xs-12 col-sm-8">									
                     <div class="form-group" id= "comment-form">
                         <input type="hidden" name="productID" value="{{products.id}}" id = "product-id">
-                        <input type= "text" name= "content" id= "comment-content" class="form-input" required="" placeholder="Please your comment here"></input>
+                        <input type="text" name="content" id="comment-content" class="form-input"  placeholder="Please your comment here" required>
                         <input  class="btn btn-primary pull-right" type = "submit" value= "Comment">
                     </div>
                 </div>
@@ -320,3 +360,8 @@
 
 </div> 
 
+<script>
+    function changeImage() {
+
+    }
+</script>

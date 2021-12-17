@@ -31,6 +31,10 @@ const productSchema = mongoose.Schema({
   },
   color:{
     type: String
+  },
+  galleryImageLinks: {
+    type: Array,
+    default: [],
   }
 
 });

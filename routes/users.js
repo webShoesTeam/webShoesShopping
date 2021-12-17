@@ -8,6 +8,8 @@ const authGuard = require('../middlewares/authGuard');
 
 router.get('/profile', authGuard.hasLogin, userController.getProfile);
 
+// Duc: to-do here
+// router.post('/change', authGuard.hasLogin, userController.changePassword);
 
 router.post('/update_avt/:id', authGuard.hasLogin, userController.updateImage);
 
