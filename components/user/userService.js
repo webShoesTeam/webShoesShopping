@@ -5,7 +5,7 @@ exports.findByUsername = async (username) => {
     const user = await userModel.findOne({
         username: username
     }).lean();
-    console.log("user in finUser\n" + user);
+    
     return user;
 };
 

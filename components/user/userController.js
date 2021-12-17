@@ -55,7 +55,6 @@ exports.updateImage = async (req, res) => {
 exports.saveUpdate = async (req, res) => {
     const id = req.params.id;  
     
-    
     const name = await req.body.name;
     const email = await req.body.email;
     const phone = await req.body.phone;
@@ -90,12 +89,21 @@ exports.saveUpdate = async (req, res) => {
         const usernameFound = await userService.findByUsername(username);
         const emailFound = await userService.findByEmail(email);
 
-        if (usernameFound || emailFound) {                             
+        if (usernameFound && (id != usernameFound._id)) { 
+            console.log("Into username")                            
             res.render('profile', {
                 title: "profile", 
                 errors: "Username or email existed",
             });
         } 
+        else if (emailFound && (id != emailFound._id)) {
+            console.log("Into email")                            
+                             
+            res.render('profile', {
+                title: "profile", 
+                errors: "Username or email existed",
+            });
+        }
         else {
             try {
                 await userService.updateUser(id, name, email, phone, address, username, password);

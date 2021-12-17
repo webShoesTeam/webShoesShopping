@@ -120,6 +120,7 @@ exports.postRegister = async (req, res) => {
 
 exports.activateEmail = async (req, res) => {
     try {
+        console.log("Into ativate");
         const {activation_token} = req.body
         const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
 
@@ -127,7 +128,7 @@ exports.activateEmail = async (req, res) => {
 
         const check = await userService.findByEmail(email);
         if(check) {
-            return res.status(400).json({msg: "This email already existed!"});
+            return res.status(400).json({msg: "This email already existed!"})
         }
         // const userNew = await userService.createUser(name, email, phone, address, username, password);
         // res.redirect('/login');
