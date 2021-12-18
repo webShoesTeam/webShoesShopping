@@ -195,13 +195,13 @@ exports.resetPassword = async (req, res) => {
 exports.changePassword = async (req, res) => {
     res.render('changePassword', {
         title: 'changePassword',
+        userID: req.params.id
     })
 }
 
 exports.change = async (req, res) => {
     const password = await req.body.password;
     const password2 = await req.body.password2;
-
 
     if (password !== password2) {
         console.log("Password do not match");
