@@ -28,5 +28,8 @@ router.get('/forget', authGuard.notLogin, authController.forget);
 router.post('/forget', authGuard.notLogin, authController.postForget);
 router.get('/reset/:token', authController.resetPassword);
 
+router.get('/changePassword/:id', authController.changePassword);
+router.post('/changePassword/:id', authController.change);
+
 
 module.exports = router;

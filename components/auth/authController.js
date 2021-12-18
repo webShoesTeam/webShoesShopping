@@ -60,7 +60,6 @@ exports.getRegister = async(req, res) => {
 };
 
 exports.postRegister = async (req, res) => {
-    console.log("into post register");
     const name = await req.body.name;
     const email = await req.body.email;
     const phone = await req.body.phone;
@@ -163,17 +162,6 @@ exports.activateEmail = async (req, res) => {
 exports.postForget = async (req, res) => {
     try {
         const email  = await req.body.email;
-        const password = await req.body.password;
-        const password2 = await req.body.password2;
-
-        if (password !== password2) {
-            console.log("Password do not match");
-            res.render('register', {
-                title: "Register",
-            });
-            return;
-        }
-        
 
         const user = await userService.findByEmail(email);
         if (!user) return res.status(400).json({ msg: "This email does not exist." })
@@ -194,21 +182,37 @@ exports.resetPassword = async (req, res) => {
         const access_token = req.params.token;
 
         const user = jwt.verify(access_token, process.env.ACCESS_TOKEN_SECRET);
-        console.log(user);
 
-        const {name, email, phone, address, username, password} = user
-        // console.log("Into reset Password");
-
-        // console.log("Password: " + password);
-        // console.log("ID: " + user._id);
-
-        await userService.updatePassword(user._id, user.password);
         // res.json({msg: "Reset password success!"})
-        res.redirect("/login?success=2")
+        const url = `${CLIENT_URL}/changePassword/${user._id}`;
+        res.redirect(url);
 
     } catch (err) {
         return res.status(500).json({msg: err.message})
     }
+}
+
+exports.changePassword = async (req, res) => {
+    res.render('changePassword', {
+        title: 'changePassword',
+    })
+}
+
+exports.change = async (req, res) => {
+    const password = await req.body.password;
+    const password2 = await req.body.password2;
+
+
+    if (password !== password2) {
+        console.log("Password do not match");
+        res.render('changePassword', {
+            title: "changePassword",
+        });
+        return;
+    }
+
+    await userService.updatePassword(req.params.id, password);
+    res.redirect("/login");
 }
 
 const createActivationToken = (payload) => {
