@@ -10,6 +10,6 @@ router.get('/:category',productController.category);
 
 router.post('/:productID/comment',productController.postComment)
 
-// router.get(`/detail/commentAPI/:productID`,productController.listComment)
+router.get(`/commentAPI/:productID/:page`,productController.listComment)
 
 module.exports = router;

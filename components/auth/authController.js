@@ -12,7 +12,7 @@ const {CLIENT_URL} = process.env;
 exports.login = (req, res) => {
     //res.render('auth/view/login');
     const wrongPassword = req.query['wrong-password'] !== undefined;
-    console.log("req.user\n\n" + JSON.stringify(req.user));
+    // console.log("req.user\n\n" + JSON.stringify(req.user));
     res.render('authentication/login', {
         title: "Login",
         wrongPassword,
@@ -30,15 +30,8 @@ exports.forget = (req, res) => {
 };
 
 exports.postLogin = function (req, res, next) {
-    // console.log("\n\n\n\nreq: \n" + JSON.stringify(req.query));
-    var prev = req.query.redirect;
-    if (typeof prev === 'undefined') {
-        prev = '/'
-    } else {
-        prev = '/' + prev;
-    }
     passport.authenticate('local', {
-        successRedirect: prev,
+        successRedirect: "/?fl=1",
         failureRedirect: `/login?success=3&username=${req.body.username}`,
     })(req, res, next);
 };

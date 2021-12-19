@@ -56,12 +56,20 @@ exports.category = (page,perPage,cate,sort,search) => {
 }
 
 exports.postComment = (username,productID,content,userID,image) =>{
+    createAt = new Date();
+    const formatted_date = createAt.getHours() 
+    + ":" + createAt.getMinutes() 
+    + ":" + createAt.getSeconds()
+    + " " + createAt.getDate()
+    + "-" + (createAt.getMonth() + 1) 
+    + "-" + createAt.getFullYear();
+    
     return new Comment({
         userID: userID,
         username: username,
         productID: productID,
         content: content,
-        createAt: new Date(),
+        createAt: formatted_date,
         image: image
     }).save();
 }

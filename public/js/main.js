@@ -257,35 +257,100 @@ jQuery(document).ready(function($) {
 
 	$(`#comment-form input[type=submit]`).on('click',function(event){
 		event.preventDefault();
-		
 		$.post(`/product/${$(`#product-id`).val()}/comment`,{
 			content: $(`#comment-content`).val(),
 			username: $(`#comment-username`).val(),
 		},function (data){
+			
 			const commentTemplate = Handlebars.compile(document.getElementById("comment-template").innerHTML)
-			const commentHtml = commentTemplate(data)
+			const commentHtml = commentTemplate(data[0])
 			$(`#comment-list`).prepend(commentHtml);
+			$(`#count-comment-detail`).text(`Comments (${data[1]})`)
 		}).fail( function(data){
 			console.log("fail",data)
 		})
 	
 	})
-
-	// $(`#listcomment a`).on('click',function(event){
-	// 	event.preventDefault();
-	// 	console.log($(this).attr("href"))
-
-	// 	$.get($(this).attr("href"),function (data){
-	// 		console.log(data);
-	// 		$('#comment-list').empty()
-	// 		for(i = 0 ; i < data.length;i++){
-	// 			const commentTemplate = Handlebars.compile(document.getElementById("comment-template").innerHTML)
-	// 			const commentHtml = commentTemplate(data[i])
-	// 			$(`#comment-list`).prepend(commentHtml);
-	// 		}
-	// 	})
-
-	// })
+	$('body').on('click', '#list_paginate_comment #comment-page', function(event){
+		event.preventDefault();
+		const productid = $("#product-id").val();
+		var page = $(this).attr("href");
+		$.get(`/product/commentAPI/${productid}/${page}`,function (data){
+			$('#comment-list').empty()
+			for(i = 0 ; i < data.length-2;i++){
+				const commentTemplate = Handlebars.compile(document.getElementById("comment-template").innerHTML)
+				const commentHtml = commentTemplate(data[i])
+				$(`#comment-list`).prepend(commentHtml);
+			}
+			paginate
+			$('#list_paginate_comment').empty()
+			paginate(data[data.length-2],data[data.length-1])
+		})
+	})
 	
 });
 
+
+function paginate(current, pages) {
+	// var uList = document.getElementById("listcomment");
+
+	var i = 1;  
+	var tagLi = document.createElement("li");
+	var link = document.createElement("a");
+	link.id = "comment-page";
+	if(current == null){
+		current == 1
+	}
+	//
+	if( current >= 3){
+		i = current - 2;
+	}
+
+	// <
+	if(current == 1){
+		link.textContent = "<";
+	}
+	else{
+		var s = current - 1
+		link.href = s;
+		link.textContent = "<";
+	}
+	tagLi.appendChild(link);
+	var elementHTML = tagLi.outerHTML
+	$('#list_paginate_comment').append(String(elementHTML)); 
+
+	//center
+	
+	for(;i <= current + 2 && i <= pages;i++){
+	tagLi = document.createElement("li");
+	link = document.createElement("a");
+	link.id = "comment-page";
+	if(i == current){
+		tagLi.classList.add('active')
+		link = document.createElement("span");
+		link.textContent = i;
+	}
+	else{
+		link.href = i;
+		link.textContent = i;
+	}
+	tagLi.appendChild(link);
+	var elementHTML = tagLi.outerHTML
+	$('#list_paginate_comment').append(String(elementHTML)); 
+	}
+	// >
+	tagLi = document.createElement("li");
+	link = document.createElement("a");
+	link.id = "comment-page";
+	if (current == pages) {
+		link.textContent = ">";
+	}
+	else{
+		link.href = s;
+		link.textContent = ">";
+	}
+	// console.log(`${tagLi}`)
+	tagLi.appendChild(link);
+	var elementHTML = tagLi.outerHTML
+	$('#list_paginate_comment').append(String(elementHTML)); 
+}

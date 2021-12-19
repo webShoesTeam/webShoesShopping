@@ -154,8 +154,11 @@ exports.category = async function(req,res) {
 }
 
 exports.postComment = async function(req,res){
+
     if(req.user){
         const comment = await productService.postComment(req.body.username,req.params.productID,req.body.content,req.user._id,req.user.image)
+        const count = await productService.countComment(req.params.productID);
+        comment.push(count)
         res.status(201).json(comment);
     }
     else{
@@ -163,7 +166,11 @@ exports.postComment = async function(req,res){
             req.body.username = "Một người lạ"
         }
         const comment = await productService.postComment(req.body.username,req.params.productID,req.body.content)
-        res.status(201).json(comment);
+        const count = await productService.countComment(req.params.productID);
+        var data = []
+        data.push(comment)
+        data.push(count)
+        res.status(201).json(data);
     }
 
     // res.redirect(`/product/detail/${req.body.productID}`)
@@ -172,7 +179,11 @@ exports.postComment = async function(req,res){
 
 exports.listComment = async function(req,res){
     const perPage = 6;
-    const page = req.query.page || 1;
-    const comments = await productService.getProductWithComment(req.params.productID,page,perPage)
+    const page = req.params.page || 1;
+    const count = await productService.countComment(req.params.productID);
+    var comments = await productService.getProductWithComment(req.params.productID,page,perPage)
+    comments.push(page);
+    comments.push(Math.ceil(count / perPage));
     res.status(201).json(comments);
+
 }

@@ -15,7 +15,7 @@ const CommentSchema = mongoose.Schema({
     type: Schema.Types.ObjectId
   },
   createAt:{
-    type: Date
+    type: String
   },
   image:{
     type: String
