@@ -189,62 +189,65 @@
     var tagLi = document.createElement("li");
     var link = document.createElement("a");
     link.id = "comment-page";
-    if({{current}} == null){
-    {{current}} == 1
-    }
-    //
-    if({{current}} >= 3){
-    i = {{current}} - 2;
-    }
+    if({{pages}}  != 0){
+          if({{current}} == null){
+        {{current}} == 1
+        }
+        //
+        if({{current}} >= 3){
+        i = {{current}} - 2;
+        }
 
-    // <
-    if({{current}} == 1){
-        link.href = 1;
-        link.textContent = "<";
-    }
-    else{
-        var s = {{current}} - 1
-        link.href = s;
-        link.textContent = "<";
-    }
-    tagLi.appendChild(link);
-    uList.appendChild(tagLi);
+        // <
+        if({{current}} == 1){
+            link.href = "null";
+            link.textContent = "<";
+        }
+        else{
+            var s = {{current}} - 1
+            link.href = s;
+            link.textContent = "<";
+        }
+        tagLi.appendChild(link);
+        uList.appendChild(tagLi);
 
-    //center
-    
-    for(;i <= {{current}} + 2 && i <= {{pages}};i++){
-    tagLi = document.createElement("li");
-    link = document.createElement("a");
-    link.id = "comment-page";
-    if(i == {{current}}){
-        tagLi.classList.add('active')
-        link = document.createElement("span");
-        link.textContent = i;
-    }
-    else{
-        link.href = i;
-        link.textContent = i;
-    }
-    tagLi.appendChild(link);
-    uList.appendChild(tagLi); 
-    }
+        //center
+        
+        for(;i <= {{current}} + 2 && i <= {{pages}};i++){
+        tagLi = document.createElement("li");
+        link = document.createElement("a");
+        link.id = "comment-page";
+        if(i == {{current}}){
+            tagLi.classList.add('active')
+            link = document.createElement("span");
+            link.textContent = i;
+        }
+        else{
+            link.href = i;
+            link.textContent = i;
+        }
+        tagLi.appendChild(link);
+        uList.appendChild(tagLi); 
+        }
 
 
-    // >
-    tagLi = document.createElement("li");
-    link = document.createElement("a");
-    link.id = "comment-page";
-    if ({{current}} == {{pages}}) {
-        link.href = {{pages}};
-        link.textContent = ">";
+        // >
+        tagLi = document.createElement("li");
+        link = document.createElement("a");
+        link.id = "comment-page";
+        if ({{current}} == {{pages}}) {
+            link.href = "null";
+            link.textContent = ">";
+        }
+        else{
+            link.href = s;
+            link.textContent = ">";
+        }
+        
+        tagLi.appendChild(link);
+        uList.appendChild(tagLi); 
     }
-    else{
-        link.href = s;
-        link.textContent = ">";
-    }
-    
-    tagLi.appendChild(link);
-    uList.appendChild(tagLi); 
+  
     
   </script>
 

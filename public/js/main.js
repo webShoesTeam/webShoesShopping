@@ -275,7 +275,8 @@ jQuery(document).ready(function($) {
 		event.preventDefault();
 		const productid = $("#product-id").val();
 		var page = $(this).attr("href");
-		if(page != undefined) {
+		if(page != "null") {
+			console.log(page)
 			$.get(`/product/commentAPI/${productid}/${page}`,function (data){
 				$('#comment-list').empty()
 				for(i = 0 ; i < data.length-2;i++){
@@ -308,7 +309,6 @@ function paginate(current, pages) {
 	if( current >= 3){
 		i = current - 2;
 	}
-
 	// <
 	if(current == 1){
 		link.href = 1;
