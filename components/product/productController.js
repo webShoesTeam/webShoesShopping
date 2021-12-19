@@ -53,6 +53,7 @@ exports.detail = async function(req,res){
     const category = req.query.category;
     var productList = await productService.category(1,perPage,category,-1," ");
     //find not current product
+
     productList = productList.filter(function( obj ) {
         return obj._id != req.params.id;
     });
@@ -185,5 +186,4 @@ exports.listComment = async function(req,res){
     comments.push(page);
     comments.push(Math.ceil(count / perPage));
     res.status(201).json(comments);
-
 }

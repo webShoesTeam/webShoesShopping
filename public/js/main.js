@@ -275,17 +275,20 @@ jQuery(document).ready(function($) {
 		event.preventDefault();
 		const productid = $("#product-id").val();
 		var page = $(this).attr("href");
-		$.get(`/product/commentAPI/${productid}/${page}`,function (data){
-			$('#comment-list').empty()
-			for(i = 0 ; i < data.length-2;i++){
-				const commentTemplate = Handlebars.compile(document.getElementById("comment-template").innerHTML)
-				const commentHtml = commentTemplate(data[i])
-				$(`#comment-list`).prepend(commentHtml);
-			}
-			paginate
-			$('#list_paginate_comment').empty()
-			paginate(data[data.length-2],data[data.length-1])
-		})
+		if(page != undefined) {
+			$.get(`/product/commentAPI/${productid}/${page}`,function (data){
+				$('#comment-list').empty()
+				for(i = 0 ; i < data.length-2;i++){
+					const commentTemplate = Handlebars.compile(document.getElementById("comment-template").innerHTML)
+					const commentHtml = commentTemplate(data[i])
+					$(`#comment-list`).prepend(commentHtml);
+				}
+				paginate
+				$('#list_paginate_comment').empty()
+				paginate(data[data.length-2],data[data.length-1])
+			})
+		}
+
 	})
 	
 });
@@ -308,6 +311,7 @@ function paginate(current, pages) {
 
 	// <
 	if(current == 1){
+		link.href = 1;
 		link.textContent = "<";
 	}
 	else{
@@ -343,9 +347,11 @@ function paginate(current, pages) {
 	link = document.createElement("a");
 	link.id = "comment-page";
 	if (current == pages) {
+		link.href = current;
 		link.textContent = ">";
 	}
 	else{
+		
 		link.href = s;
 		link.textContent = ">";
 	}

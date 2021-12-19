@@ -199,12 +199,13 @@
 
     // <
     if({{current}} == 1){
-    link.textContent = "<";
+        link.href = 1;
+        link.textContent = "<";
     }
     else{
-    var s = {{current}} - 1
-    link.href = s;
-    link.textContent = "<";
+        var s = {{current}} - 1
+        link.href = s;
+        link.textContent = "<";
     }
     tagLi.appendChild(link);
     uList.appendChild(tagLi);
@@ -234,6 +235,7 @@
     link = document.createElement("a");
     link.id = "comment-page";
     if ({{current}} == {{pages}}) {
+        link.href = {{pages}};
         link.textContent = ">";
     }
     else{
