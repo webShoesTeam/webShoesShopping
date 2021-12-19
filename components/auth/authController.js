@@ -11,31 +11,27 @@ const {CLIENT_URL} = process.env;
 
 exports.login = (req, res) => {
     //res.render('auth/view/login');
-    var flag = 0;
-    if(req.query.success != undefined && req.query.success == 1){
-        var flag = 1;
-    }
     const wrongPassword = req.query['wrong-password'] !== undefined;
     console.log("req.user\n\n" + JSON.stringify(req.user));
-    res.render('login', {
+    res.render('authentication/login', {
         title: "Login",
         wrongPassword,
         user: req.user,
-        flag: flag,
+        flag: req.query.success,
+        username: req.query.username
     });
 };
 
 exports.forget = (req, res) => {
-    res.render('forgetPassword', {
+    res.render('authentication/forgetPassword', {
         title: "forgetPassword",
+        flag: req.query.flag
     });
 };
 
 exports.postLogin = function (req, res, next) {
-    console.log("\n\n\n\nreq: \n" + JSON.stringify(req.query));
+    // console.log("\n\n\n\nreq: \n" + JSON.stringify(req.query));
     var prev = req.query.redirect;
-
-    console.log("redirect: " + prev);
     if (typeof prev === 'undefined') {
         prev = '/'
     } else {
@@ -43,18 +39,17 @@ exports.postLogin = function (req, res, next) {
     }
     passport.authenticate('local', {
         successRedirect: prev,
-        failureRedirect: '/login?username or password is wrong',
+        failureRedirect: `/login?success=3&username=${req.body.username}`,
     })(req, res, next);
 };
 
 exports.getLogout = (req, res) => {
-    req.logout();    
-    //req.flash('success', 'You are logged out!');
-    res.redirect('/');
+    req.logout();
+    res.redirect('/?fl=2');
 };
 
 exports.getRegister = async(req, res) => {
-    res.render('register', {
+    res.render('authentication/register', {
         title: 'Register',
     })
 };
@@ -70,7 +65,7 @@ exports.postRegister = async (req, res) => {
 
     if (password !== password2) {
         console.log("Password do not match");
-        res.render('register', {
+        res.render('authentication/register', {
             title: "Register",
         });
         return;
@@ -87,7 +82,7 @@ exports.postRegister = async (req, res) => {
 
     if (!errors.isEmpty()) {
         console.log("loi empty validation");
-        res.render('register', {
+        res.render('authentication/register', {
             errors: errors,
             title: 'Register',
         });
@@ -100,7 +95,7 @@ exports.postRegister = async (req, res) => {
         if (usernameFound || emailFound) {
             console.log("Found\n" + JSON.stringify(usernameFound));
             console.log("Found\n" + JSON.stringify(emailFound));
-            res.render('register', {
+            res.render('authentication/register', {
                 title: "Register",
                 errors: "Username or email existed",
             });
@@ -164,13 +159,17 @@ exports.postForget = async (req, res) => {
         const email  = await req.body.email;
 
         const user = await userService.findByEmail(email);
-        if (!user) return res.status(400).json({ msg: "This email does not exist." })
+        if (!user){
+            res.redirect("/forget?flag=2");
+            // return res.status(400).json({ msg: "This email does not exist." })
+        } 
 
         const access_token = createAccessToken(user);
         const url = `${CLIENT_URL}/reset/${access_token}`
 
         sendMail(email, url, "Reset your password")
-        res.json({ msg: "Reset the password, please check your email." })
+        // res.json({ msg: "Reset the password, please check your email." })
+        res.redirect("/forget?flag=1");
 
     } catch (err) {
         return res.status(500).json({msg: err.message})
@@ -193,7 +192,7 @@ exports.resetPassword = async (req, res) => {
 }
 
 exports.changePassword = async (req, res) => {
-    res.render('changePassword', {
+    res.render('authentication/changePassword', {
         title: 'changePassword',
         userID: req.params.id
     })
@@ -205,14 +204,15 @@ exports.change = async (req, res) => {
 
     if (password !== password2) {
         console.log("Password do not match");
-        res.render('changePassword', {
+        res.render('authentication/changePassword', {
             title: "changePassword",
+            userID: req.params.id
         });
         return;
     }
 
     await userService.updatePassword(req.params.id, password);
-    res.redirect("/login");
+    res.redirect("/login?success=2");
 }
 
 const createActivationToken = (payload) => {

@@ -20,7 +20,11 @@
                           <p>
                               <label>Username</label>
                               <span>*</span>
-                              <input type="text" name="username" value="">
+                                {{#if username}}
+                                <input type="text" name="username" value="{{username}}" placeholder="{{username}}">
+                                {{else}}
+                                <input type="text" name="username" value="">
+                                {{/if}}
                           </p>
                           <p>
                               <label>Password</label>   
@@ -54,5 +58,12 @@
 <script>
     if({{flag}} == 1){
         alert("Account has been activated!")
+    }
+    if({{flag}} == 2){
+        alert("Reset password success")
+    }
+    
+    if({{flag}} == 3){
+        alert("username or password is wrong")
     }
 </script>

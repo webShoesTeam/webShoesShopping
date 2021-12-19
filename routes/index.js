@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { 
     title: 'Express',
-    // user: req.user, 
+    flag: req.query.fl
   });
 });
 
@@ -25,19 +25,5 @@ router.get('/about', function(req, res, next) {
 router.get('/thankyou', function(req, res, next) {
   res.render('thankyou', { title: 'thank you' });
 });
-
-// router.get('/login', function(req, res, next) {
-//   res.render('login', { title: 'login' });
-// });
-
-// router.get('/register', function(req, res, next) {
-//   res.render('register', { title: 'register' });
-// });
-
-// router.get('/user', function(req, res, next) {
-//   res.render('profile', { title: 'profile' });
-// });
-
-
 
 module.exports = router;
