@@ -20,7 +20,7 @@ exports.search = (sizes,colors,page,perPage,sort,search) =>{
 }
 
 
-exports.count2 = (sizes,colors,search) => { 
+exports.count2 = (sizes,colors,sort,search) => { 
     return Product.countDocuments({$or:[{color: colors},{size:sizes}], name: { $regex: search }})
     .sort({'price': sort})
 }

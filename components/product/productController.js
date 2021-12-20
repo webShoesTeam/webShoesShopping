@@ -12,7 +12,7 @@ exports.list = async function(req,res) {
     }
     console.log(nameSearch)
     if(size != undefined || color != undefined){
-        const count = await productService.count2(size,color,nameSearch);
+        const count = await productService.count2(size,color,sort,nameSearch);
         const products = await  productService.search(size,color,page,perPage,sort,nameSearch);
         let sizeN = 0;
         let colorN = 0;
@@ -132,7 +132,7 @@ exports.category = async function(req,res) {
         }
         else{
             if(size != undefined || color != undefined){
-                const count = await productService.count2(size,color,nameSearch);
+                const count = await productService.count2(size,color,sort,nameSearch);
                 const products = await  productService.search(size,color,page,perPage,sort,nameSearch);
                 
                 res.render('product/list', { 
