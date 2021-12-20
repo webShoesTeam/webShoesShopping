@@ -73,6 +73,7 @@ exports.updatePassword = async (id, password) => {
     const user = await userModel.findOne({
         _id: id
     });
+    
     if (user) {
         user.password = passwordHashed;
         await user.save();

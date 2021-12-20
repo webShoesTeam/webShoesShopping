@@ -1,4 +1,5 @@
 const userService = require('./userService');
+const bcrypt = require('bcrypt');
 
 const cloudinary = require('cloudinary').v2;
 const formidable = require('formidable');
@@ -145,3 +146,20 @@ exports.saveUpdate = async (req, res) => {
 
     }
 }
+
+exports.updatePassword = async (req, res) => {
+    const id = req.params.id;
+
+    const oldPass = await req.body.oldpassword;
+    const newPass = await req.body.password;
+    const newPass2 = await req.body.password2;
+    
+    const user = await userService.findById(id);
+    if(await bcrypt.compare(oldPass, user.password)) {
+        await userService.updatePassword(id, newPass);
+        res.redirect("/users/profile");
+    }
+    else {
+        res.redirect('/users/profile?wrong-oldPassword');
+    }
+};

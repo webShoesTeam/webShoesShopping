@@ -14,6 +14,7 @@ router.get('/profile', authGuard.hasLogin, userController.getProfile);
 router.post('/update_avt/:id', authGuard.hasLogin, userController.updateImage);
 
 router.post('/save/:id', authGuard.hasLogin, userController.saveUpdate);
+router.post('/updatePassword/:id', authGuard.hasLogin, userController.updatePassword);
 
 
 module.exports = router;
