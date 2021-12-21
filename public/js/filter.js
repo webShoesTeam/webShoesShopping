@@ -94,6 +94,66 @@ function addeventSize(arr){
 }
 
 
+const arrayCategory = ["Men","Children","Women"]
+
+function addEventCategory(categoryiD){
+  const temp =  document.getElementById(categoryiD)
+  temp.addEventListener('click',function(){
+        if(window.location.href.search(`&category=`) != -1){
+          
+          for(i = 0 ; i < arrayCategory.length ; i++){
+            if(window.location.href.search(`&category=${arrayCategory[i]}`) !=-1 && window.location.href.search(`&category=${temp.getAttribute("value")}`) == -1 ){
+              temp.href = window.location.href.replace(`&category=${arrayCategory[i]}`,`&category=${temp.getAttribute("value")}`)
+              return;
+            }
+        }
+      }
+      if(window.location.href.search("&") == -1){
+        strbegin = "";
+        if(window.location.href.search("page") == -1){
+          strbegin =  window.location.href + "?"
+        }
+        else{
+          strbegin = window.location.href.substring(0,window.location.href.search("page"));
+        }
+        temp.href = strbegin +  "page=1" + `&category=${temp.getAttribute("value")}`;
+      }
+      else{
+        strbegin = "";
+        if(window.location.href.search("page") == -1){
+          strbegin =  window.location.href + "?"
+        }
+        else{
+          strbegin = window.location.href.substring(0,window.location.href.search("page"));
+        }
+        str = window.location.href.substring(window.location.href.search("&"))
+        temp.href = strbegin +  "page=1" + str +`&category=${temp.getAttribute("value")}`;
+      }
+  })
+}
+
+addEventCategory("category-men");
+addEventCategory("category-women");
+addEventCategory("category-children");
+
+
+const allproduct =  document.getElementById("category-All")
+allproduct.addEventListener('click',function(){
+    if(window.location.href.search(`&`) == -1){
+      return;
+    }
+    if(window.location.href.search(`&category=Women`) != -1){
+      allproduct.href = window.location.href.replace("&category=Women","");
+    }
+    if(window.location.href.search(`&category=Men`) != -1){
+      allproduct.href = window.location.href.replace("&category=Men","");
+    }
+    if(window.location.href.search(`&category=Children`) != -1){
+      allproduct.href = window.location.href.replace("&category=Children","");
+    }
+})
+
+
 const arrayColor = ["red","green","blue","purple"]
 addeventColor(arrayColor);
 

@@ -6,8 +6,6 @@ router.get('/', productController.list);
 
 router.get('/detail/:id', productController.detail); 
 
-router.get('/:category',productController.category);
-
 router.post('/:productID/comment',productController.postComment)
 
 router.get(`/commentAPI/:productID/:page`,productController.listComment)

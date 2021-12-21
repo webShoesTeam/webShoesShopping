@@ -62,6 +62,8 @@
             <div class="row" data-aos="fade-up" >
               <div class="col-md-12 text-center">
                 <div class="site-block-27">
+                  <input type= "hidden" name="current" id="current" value="{{current}}">
+                  <input type= "hidden" name="pages" id="pages" value="{{pages}}">
                   <ul id="listpage" class = "listpageclass">
 
                   </ul>
@@ -75,10 +77,11 @@
           <div class="col-md-3 order-1 mb-5 mb-md-0">
             <div class="border p-4 rounded mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-1"><a id="category-men" href="/product/Men?page=1" class="d-flex"><span>Men</span> <span class="text-black ml-auto"></span></a></li>
-                <li class="mb-1"><a id="category-women" href="/product/Women?page=1" class="d-flex"><span>Women</span> <span class="text-black ml-auto"></span></a></li>
-                <li class="mb-1"><a id="category-children" href="/product/Children?page=1" class="d-flex"><span>Children</span> <span class="text-black ml-auto"></span></a></li>
+              <ul class="list-unstyled mb-0" id="category-list">
+                <li class="mb-1"><a id="category-All" href = "" value="all" class="d-flex"><span>All Product</span> <span class="text-black ml-auto"></span></a></li>
+                <li class="mb-1"><a id="category-men"  href = "" value="Men" class="d-flex"><span>Men</span> <span class="text-black ml-auto"></span></a></li>
+                <li class="mb-1"><a id="category-women"  href = "" value="Women" class="d-flex"><span>Women</span> <span class="text-black ml-auto"></span></a></li>
+                <li class="mb-1"><a id="category-children"  href = "" value="Children" class="d-flex"><span>Children</span> <span class="text-black ml-auto"></span></a></li>
               </ul>
             </div>
           
@@ -152,7 +155,7 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
-                    <a class="block-2-item" href="#">
+                    <a class="block-2-item" href="/product?page=1&category=Women">
                       <figure class="image">
                         <img src="/images/women.jpg" alt="" class="img-fluid">
                       </figure>
@@ -163,7 +166,7 @@
                     </a>
                   </div>
                   <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
-                    <a class="block-2-item" href="#">
+                    <a class="block-2-item" href="/product?page=1&category=Children">
                       <figure class="image">
                         <img src="/images/children.jpg" alt="" class="img-fluid">
                       </figure>
@@ -174,7 +177,7 @@
                     </a>
                   </div>
                   <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
-                    <a class="block-2-item" href="#">
+                    <a class="block-2-item" href="/product?page=1&category=Men">
                       <figure class="image">
                         <img src="/images/men.jpg" alt="" class="img-fluid">
                       </figure>
@@ -191,118 +194,6 @@
         </div>
         
       </div>
-    <script>
-      var uList = document.getElementById("listpage");
-      var numPage = 3;
-      var i = 1;  
-      var tagLi = document.createElement("li");
-      var link = document.createElement("a");
-      link.className = "listpaginate";
-      if({{current}} == null){
-        {{current}} == 1
-      }
-      //
-      if({{current}} >= 3){
-        i = {{current}} - 2;
-      }
-
-      // <
-      if({{current}} == 1){
-        link.href  = "#";
-        link.textContent = "<";
-      }
-      else{
-        var s = {{current}} - 1
-        if(window.location.href.search("&") == -1){
-          link.href  = "/product?page=" + s;
-        }
-        else{
-          str = window.location.href.substring(window.location.href.search("&"))
-          link.href  = `/product?page=${s}` + str;
-        }
-        link.textContent = "<";
-      }
-      tagLi.appendChild(link);
-      uList.appendChild(tagLi);
-
-      //center
-      
-      for(;i <= {{current}} + 2 && i <= {{pages}};i++){
-      tagLi = document.createElement("li");
-      link = document.createElement("a");
-      link.className = "listpaginate";
-      if(i == {{current}}){
-        tagLi.classList.add('active')
-        link = document.createElement("span");
-        link.textContent = i;
-      }
-      else{
-        if(window.location.href.search("&") == -1){
-          link.href = "/product?page=" + i;
-        }
-        else{
-          str = window.location.href.substring(window.location.href.search("&"))
-          link.href  = `/product?page=${i}` + str;
-        }
-        
-        link.textContent = i;
-      }
-      tagLi.appendChild(link);
-      uList.appendChild(tagLi); 
-    }
-
-
-      // >
-      tagLi = document.createElement("li");
-      link = document.createElement("a");
-      link.className = "listpaginate";
-      if ({{current}} == {{pages}}) {
-          link.href  = "#";
-          link.textContent = ">";
-      }
-      else{
-          var s = {{current}} + 1
-          if(window.location.href.search("&") == -1){
-            link.href = "/product?page=" + s;
-          }
-          else{
-            str = window.location.href.substring(window.location.href.search("&"))
-            link.href  = `/product?page=${s}` + str;
-          }
-          link.textContent = ">";
-      }
-      tagLi.appendChild(link);
-      uList.appendChild(tagLi); 
-
-      //update sort
-      var linksort1 = document.getElementById("Price-ascending");
-      var linksort2 = document.getElementById("Price-descending")
-      if(window.location.href.search("&") == -1){
-        linksort1.href = "/product?page=1&sort=1";
-        linksort2.href = "/product?page=1&sort=-1";
-      }
-      else{
-        if(window.location.href.search("&sort=-1") != -1){
-          linksort1.href  = window.location.href.replace("&sort=-1","&sort=1") ;
-        }
-        else if(window.location.href.search("&sort=1") != -1){
-          linksort2.href  = window.location.href.replace("&sort=1","&sort=-1") ;
-        }
-        else{
-          linksort1.href  = window.location.href + "&sort=1";
-          linksort2.href  = window.location.href + "&sort=-1";
-        }
-      }
-      //Category
-      var categoryChilren = document.getElementById("category-children")
-      var categoryMen = document.getElementById("category-men")
-      var categoryWomen = document.getElementById("category-women")
-      if(window.location.href.search("page") != -1){
-        categoryChilren.href = "/product/Children" + window.location.href.substring(window.location.href.search("page") -1);
-        categoryMen.href = "/product/Men" + window.location.href.substring(window.location.href.search("page") -1 );
-        categoryWomen.href = "/product/Women" + window.location.href.substring(window.location.href.search("page") -1 );
-      }
-    </script>
+    <script src="/js/paginate.js"> </script>
     <script  src="/js/filter.js"></script>
-
     </div>
