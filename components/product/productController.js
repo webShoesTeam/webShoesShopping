@@ -159,8 +159,10 @@ exports.postComment = async function(req,res){
     if(req.user){
         const comment = await productService.postComment(req.body.username,req.params.productID,req.body.content,req.user._id,req.user.image)
         const count = await productService.countComment(req.params.productID);
-        comment.push(count)
-        res.status(201).json(comment);
+        var data = []
+        data.push(comment)
+        data.push(count)
+        res.status(201).json(data);
     }
     else{
         if(req.body.username == ""){
