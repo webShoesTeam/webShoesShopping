@@ -42,9 +42,7 @@ function addeventColor(arr){
           }
         }
         window.location.href = window.location.href.replace(`&Color=${temp.value}`,"")
-      }
-    
-     
+      }  
       })
   }
 }
@@ -99,8 +97,10 @@ const arrayCategory = ["Men","Children","Women"]
 function addEventCategory(categoryiD){
   const temp =  document.getElementById(categoryiD)
   temp.addEventListener('click',function(){
-        if(window.location.href.search(`&category=`) != -1){
-          
+      if(window.location.href.search(`&category=${temp.getAttribute("value")}`) != -1){
+        return;
+      }
+      if(window.location.href.search(`&category=`) != -1){
           for(i = 0 ; i < arrayCategory.length ; i++){
             if(window.location.href.search(`&category=${arrayCategory[i]}`) !=-1 && window.location.href.search(`&category=${temp.getAttribute("value")}`) == -1 ){
               temp.href = window.location.href.replace(`&category=${arrayCategory[i]}`,`&category=${temp.getAttribute("value")}`)
