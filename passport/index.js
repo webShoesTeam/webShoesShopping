@@ -9,14 +9,20 @@ passport.use(new LocalStrategy(
         
         const user = await userService.findByUsername(username);
         
-        if (!user)
+        if (!user) {
             return done(null, false, {message: 'Incorrect username'});
-        
+        }
+
+        if (user.isBanned == true) {
+            return done(null, false, {message: 'This user is currently being banned'});
+        }
+
         const isValid = await userService.validPassword(password, user);
         console.log("\n\n\nisValid: " + isValid)
         if (!isValid) {
             return done(null, false, {message: 'Incorrect password'});
         }
+
         return done(null, user);
     }
 ));
