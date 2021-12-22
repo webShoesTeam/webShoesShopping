@@ -18,7 +18,7 @@ if(pages != 0){
     link.textContent = "<";
     }
     else{
-    var s = current - 1
+    var s = Number(current) - Number(1)
     if(window.location.href.search("&") == -1){
         link.href  = "/product?page=" + s;
     }
@@ -67,7 +67,7 @@ if(pages != 0){
         link.textContent = ">";
     }
     else{
-        var s = current + 1
+        var s = Number(current) - Number(1)
         if(window.location.href.search("&") == -1){
         link.href = "/product?page=" + s;
         }
