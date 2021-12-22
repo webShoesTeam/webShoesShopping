@@ -7,15 +7,16 @@ link.className = "listpaginate";
 const current = document.getElementById("current").value;
 const pages = document.getElementById("pages").value;
 
+console.log(current,pages);
 if(pages != 0){
     if(current >= 3){
-        i = current - 2;
+        i = Number(current) - 2;
       }
       
       // <
     if(current == 1){
-    link.href  = "#";
-    link.textContent = "<";
+      link.href  = "#";
+      link.textContent = "<";
     }
     else{
     var s = Number(current) - Number(1)
@@ -33,7 +34,7 @@ if(pages != 0){
       
       //center
       
-    for(;i <= current + 2 && i <= pages;i++){
+    for(;i <= Number(current) + 2 && i <= pages;i++){
     tagLi = document.createElement("li");
     link = document.createElement("a");
     link.className = "listpaginate";
@@ -67,13 +68,13 @@ if(pages != 0){
         link.textContent = ">";
     }
     else{
-        var s = Number(current) - Number(1)
+        var s = Number(current) + Number(1)
         if(window.location.href.search("&") == -1){
-        link.href = "/product?page=" + s;
+          link.href = "/product?page=" + s;
         }
         else{
-        str = window.location.href.substring(window.location.href.search("&"))
-        link.href  = `/product?page=${s}` + str;
+          str = window.location.href.substring(window.location.href.search("&"))
+          link.href  = `/product?page=${s}` + str;
         }
         link.textContent = ">";
     }
