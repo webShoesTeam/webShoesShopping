@@ -297,25 +297,24 @@ jQuery(document).ready(function($) {
 
 function paginate(current, pages) {
 	// var uList = document.getElementById("listcomment");
-
 	var i = 1;  
 	var tagLi = document.createElement("li");
 	var link = document.createElement("a");
 	link.id = "comment-page";
-	if(current == null){
-		current == 1
+	if(Number(current) == null){
+		Number(current) == 1
 	}
 	//
-	if( current >= 3){
-		i = current - 2;
+	if(Number(current) >= 3){
+		i = Number(current) - 2;
 	}
 	// <
-	if(current == 1){
+	if(Number(current) == 1){
 		link.href = 1;
 		link.textContent = "<";
 	}
 	else{
-		var s = current - 1
+		var s = Number(current) - 1
 		link.href = s;
 		link.textContent = "<";
 	}
@@ -324,12 +323,11 @@ function paginate(current, pages) {
 	$('#list_paginate_comment').append(String(elementHTML)); 
 
 	//center
-	
-	for(;i <= current + 2 && i <= pages;i++){
+	for(;i <= Number(current) + 2 && i <= pages;i++){
 	tagLi = document.createElement("li");
 	link = document.createElement("a");
 	link.id = "comment-page";
-	if(i == current){
+	if(i == Number(current)){
 		tagLi.classList.add('active')
 		link = document.createElement("span");
 		link.textContent = i;

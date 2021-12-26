@@ -7,7 +7,6 @@ link.className = "listpaginate";
 const current = document.getElementById("current").value;
 const pages = document.getElementById("pages").value;
 
-console.log(current,pages);
 if(pages != 0){
     if(current >= 3){
         i = Number(current) - 2;
