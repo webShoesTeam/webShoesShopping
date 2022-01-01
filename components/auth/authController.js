@@ -18,6 +18,7 @@ exports.login = (req, res) => {
     }
     res.render('authentication/login', {
         title: "Login",
+
         mess: mess,
         //user: req.user,
         // flag: req.query.success,
@@ -60,6 +61,7 @@ exports.getRegister = async(req, res) => {
     res.render('authentication/register', {
         title: 'Register',
         mess: mess,
+
     })
 };
 
@@ -125,8 +127,14 @@ exports.postRegister = async (req, res) => {
 
                 const url = `${CLIENT_URL}/activation/${activation_token}`
                 sendMail(email, url, "Verify your email address")
+
                 res.redirect("/register?error=Register Success! Please activate ur email to start.")
                 //res.json({ msg: "Register Success! Please activate ur email to start." });
+
+
+                // res.json({ msg: "Register Success! Please activate ur email to start." });
+                //res.redirect("/register?success=1")
+
             } catch (err) {
                 //return res.status(500).json({ msg: err.message })
                 res.redirect("/register?error=Something wrong, please try again")
@@ -247,3 +255,4 @@ const createAccessToken = (payload) => {
 const createRefreshToken = (payload) => {
     return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'})
 }
+

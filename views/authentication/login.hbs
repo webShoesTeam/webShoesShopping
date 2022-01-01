@@ -15,9 +15,11 @@
                      <h4 class="title">Registered Customers</h4>
                    <div class="comments-area">
                       <form id="form-login"  action='/login' method="post">
+
                           {{#if mess}}
                           <p style="color: red;">{{mess}}</p>
                           {{/if}}
+
                           <p>
                               <label>Username</label>
                               <span>*</span>
@@ -32,6 +34,9 @@
                               <span>*</span>
                               <input type="password" name="password" value="">
                           </p>
+                            {{#if wrongPassword}}
+                            <p style="color:red">Username or password is incorrect!</p>
+                            {{/if}}
                            <p id="login-form-remember">
                               <label><a href="/forget">Forget Your Password ? </a></label>
                            </p>
@@ -63,8 +68,10 @@
     if({{flag}} == 2){
         alert("Reset password success")
     }
+
     
     if({{flag}} == 3){
         alert("username or password is wrong")
     } --}}
+
 </script>

@@ -26,6 +26,7 @@ exports.getProfile = (req, res) => {
         title: "Profile",
         mess: mess,
         success: success,
+
     })
 }
 
@@ -178,5 +179,7 @@ exports.updatePassword = async (req, res) => {
     }
     else {
         res.redirect('/users/profile?mess=Password does not change: wrong old password');
+        //res.redirect('/users/profile?wrongold=1');
+
     }
 };

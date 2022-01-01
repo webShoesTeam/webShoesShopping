@@ -1,7 +1,8 @@
 <div class="container">
 <div class="register_account">
-    <div class="wrap">
-        <h4 class="title">Create an Account</h4>
+    <div class="row">
+        <div class="col-md-4"></div>
+        
         {{!-- <form method="post" action="/users/register">
             <div class="col_1_of_2 span_1_of_2">
                     <div><input type="text" name="name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}"></div>
@@ -19,7 +20,8 @@
             <div class="clear"></div>
         </form> --}}
 
-
+        <div class="col-md-4">
+            <div class="title">Create an Account</div>
         <form method="post" action="/register" autocomplete="off">
                 <div class="form-group">
                     {{#if mess}}
@@ -33,11 +35,38 @@
                 <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email" required></div>
                 <div class="form-group"><input class="form-control" type="tel" pattern="[0-9]{10}" name="phone" placeholder="Phone: 0123 456 789" required></div>
                 <div class="form-group"><input class="form-control" type="text" name="address" placeholder="Address" required></div>
-                <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password" required></div>
-                <div class="form-group"><input class="form-control" type="password" name="password2" placeholder="Confirm Password" required></div>
-                <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign up</button></div><a href="/login" class="signuplog">You already have account, click Login</a>
+                <div class="form-group"><input class="form-control" type="password" name="password" id="chpassword" placeholder="Password" onkeyup='check_changepass1();' required></div>
+                <div class="form-group"><input class="form-control" type="password" name="password2" id="chpassword2" placeholder="Confirm Password" disabled onkeyup='check_changepass2();' required></div>
+                <div class="form-group">
+                    <div style="color: red;">{{ mess }}</div>
+                    <div><span id="message-changepass2" class="alert alert-warning" role="alert" style="display: none;"></span></div> 
+                </div>
+                <div class="form-group"><button class="btn btn-primary btn-block" type="submit" id="submitchange" disabled>Sign up</button>
+                </div><a href="/login" class="signuplog">You already have account, click Login</a>
         </form> 
+        </div>
+        <div class="col-md-4"></div>
     </div> 
 </div>
 <br>
+
 </div>
+
+
+<script>
+    function check_changepass1() {        
+            document.getElementById('chpassword2').disabled = false;
+    }
+
+    function check_changepass2() {
+    if (document.getElementById('chpassword').value == document.getElementById('chpassword2').value) {            
+        document.getElementById('message-changepass2').style.display = 'none';
+        document.getElementById('submitchange').disabled = false;
+        } else {
+            document.getElementById('submitchange').disabled = true;
+            document.getElementById('message-changepass2').innerHTML = 'Wrong confirm password';
+            document.getElementById('message-changepass2').style.display = 'block';
+        }
+    }
+</script>
+
