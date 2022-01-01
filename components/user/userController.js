@@ -15,7 +15,7 @@ cloudinary.config({
 exports.getProfile = (req, res) => {
     res.render('profile', {
         title: "Profile",
-    
+        oldPassword: req.query.wrongold,
     })
 }
 
@@ -160,6 +160,6 @@ exports.updatePassword = async (req, res) => {
         res.redirect("/users/profile");
     }
     else {
-        res.redirect('/users/profile?wrong-oldPassword');
+        res.redirect('/users/profile?wrongold=1');
     }
 };

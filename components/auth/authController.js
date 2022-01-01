@@ -15,7 +15,7 @@ exports.login = (req, res) => {
     // console.log("req.user\n\n" + JSON.stringify(req.user));
     res.render('authentication/login', {
         title: "Login",
-        wrongPassword,
+        wrongPassword: req.query.wrong,
         user: req.user,
         flag: req.query.success,
         username: req.query.username
@@ -32,7 +32,7 @@ exports.forget = (req, res) => {
 exports.postLogin = function (req, res, next) {
     passport.authenticate('local', {
         successRedirect: "/?fl=1",
-        failureRedirect: `/login?success=3&username=${req.body.username}`,
+        failureRedirect: `/login?success=3&username=${req.body.username}&wrong=1`,
     })(req, res, next);
 };
 

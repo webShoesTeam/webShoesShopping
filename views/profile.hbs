@@ -68,7 +68,7 @@
                     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
                     
                     {{!-- <li><a data-toggle="tab" href="/cart">Cart</a></li> --}}
-                    <li><a data-toggle="tab" href="#settings">Change Password</a></li>
+                    <li><a id='Change_password' data-toggle="tab" href="#settings">Change Password</a></li>
                   </ul>
     
                   
@@ -159,8 +159,11 @@
                                   <label for="password"><h4>Old Password</h4></label>
                                   <input type="password" class="form-control" name="oldpassword" id="oldpassword" placeholder="old password" title="enter your old password." required>
                               </div>
+                            {{#if oldPassword}}
+                            <p style="color:red">Old password is incorrect!</p>
+                            {{/if}}    
                           </div>      
-                                            
+             
                           <div class="form-group">                              
                               <div class="col-xs-12">
                                   <label for="password"><h4>New Password</h4></label>
@@ -192,7 +195,13 @@
             </div><!--/col-9-->
     </div><!--/row-->                         
 
-
+<script>
+    oldPassword = 0;
+    oldPassword = {{oldPassword}}
+    if(oldPassword != 0){
+        document.getElementById("Change_password").click();
+    }
+</script>
 
 <script>
     $(document).ready(function() {    
