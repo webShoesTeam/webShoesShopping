@@ -75,6 +75,10 @@
               <div class="tab-content">
                 <div class="tab-pane active" id="home">
                     <hr>
+                    {{#if success}}
+                    <div style="color: green;">{{success}}</div>
+                    {{/if}}
+                    
                       <form class="form" action="/users/save/{{user._id}}" method="post" id="registrationForm">
                           <div class="form-group">
                               
@@ -138,7 +142,10 @@
                           <div class="form-group">
                                <div class="col-xs-12">                                    
                                     <br>
+                                    {{#if mess}}
                                     <div style="color: red;">{{ mess }}</div>
+                                    {{/if}}
+                                    
                                     <div><span id="message-pass2" class="alert alert-warning" role="alert" style="display: none;"></span></div> 
                                     <button class="btn btn-lg btn-success" type="submit" id="submit" disabled><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
                                     <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
@@ -177,7 +184,9 @@
                           <div class="form-group">
                                <div class="col-xs-12">
                                     <br>
+                                    {{#if mess}}
                                     <div style="color: red;">{{ mess }}</div>
+                                    {{/if}}
                                     <div><span id="message-changepass2" class="alert alert-warning" role="alert" style="display: none;"></span></div> 
                                     <button class="btn btn-lg btn-success pull-right" type="submit" id="submitchange" disabled><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
                                        <!--<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>-->

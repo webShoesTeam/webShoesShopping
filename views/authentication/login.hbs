@@ -15,16 +15,16 @@
                      <h4 class="title">Registered Customers</h4>
                    <div class="comments-area">
                       <form id="form-login"  action='/login' method="post">
-                          {{#if wrongPassword}}
-                          <p>Username or password incorrect</p>
+                          {{#if mess}}
+                          <p style="color: red;">{{mess}}</p>
                           {{/if}}
                           <p>
                               <label>Username</label>
                               <span>*</span>
                                 {{#if username}}
-                                <input type="text" name="username" value="{{username}}" placeholder="{{username}}">
+                                <input type="text" name="username" value="{{username}}" placeholder="{{username}}" required>
                                 {{else}}
-                                <input type="text" name="username" value="">
+                                <input type="text" name="username" value="" required>
                                 {{/if}}
                           </p>
                           <p>
@@ -57,7 +57,7 @@
 
 
 <script>
-    if({{flag}} == 1){
+    {{!-- if({{flag}} == 1){
         alert("Account has been activated!")
     }
     if({{flag}} == 2){
@@ -66,5 +66,5 @@
     
     if({{flag}} == 3){
         alert("username or password is wrong")
-    }
+    } --}}
 </script>

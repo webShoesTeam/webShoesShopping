@@ -44,7 +44,8 @@
                     </div>
                     <div class="col-md-6">
                         <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="c_phone" name="phone" placeholder="Phone Number" value="{{user.phone}}">
+                        <input type="tel" pattern="[0-9]{10}" class="form-control" id="c_phone" name="phone" placeholder="Phone: 0123456789" value="{{user.phone}}">
+                        
                     </div>
                     </div>
 

@@ -11,39 +11,55 @@ const {CLIENT_URL} = process.env;
 
 exports.login = (req, res) => {
     //res.render('auth/view/login');
-    const wrongPassword = req.query['wrong-password'] !== undefined;
+    let mess = req.query.mess !== undefined;
     // console.log("req.user\n\n" + JSON.stringify(req.user));
+    if (mess) {
+        mess = req.query.mess;
+    }
     res.render('authentication/login', {
         title: "Login",
-        wrongPassword,
-        user: req.user,
-        flag: req.query.success,
-        username: req.query.username
+        mess: mess,
+        //user: req.user,
+        // flag: req.query.success,
+        //username: req.query.username
     });
 };
 
 exports.forget = (req, res) => {
+    let mess = req.query.mess !== undefined;
+    if (mess) {
+        mess = req.query.mess;
+    }
     res.render('authentication/forgetPassword', {
         title: "forgetPassword",
-        flag: req.query.flag
+        //flag: req.query.flag
+        mess: mess,
     });
 };
 
 exports.postLogin = function (req, res, next) {
     passport.authenticate('local', {
-        successRedirect: "/?fl=1",
-        failureRedirect: `/login?success=3&username=${req.body.username}`,
+        // successRedirect: "/?fl=1",
+        // failureRedirect: `/login?success=3&username=${req.body.username}`,
+        successRedirect: "/",
+        failureRedirect: `/login?mess=username or password incorrect`,
     })(req, res, next);
 };
 
 exports.getLogout = (req, res) => {
     req.logout();
-    res.redirect('/?fl=2');
+    //res.redirect('/?fl=2');
+    res.redirect('/');
 };
 
 exports.getRegister = async(req, res) => {
+    let mess = req.query['error'] !== undefined;
+    if (mess) {
+        mess = req.query.error;
+    }
     res.render('authentication/register', {
         title: 'Register',
+        mess: mess,
     })
 };
 
@@ -57,11 +73,12 @@ exports.postRegister = async (req, res) => {
     const address = await req.body.address;
 
     if (password !== password2) {
-        console.log("Password do not match");
-        res.render('authentication/register', {
-            title: "Register",
-        });
-        return;
+        // console.log("Password do not match");
+        // res.render('authentication/register', {
+        //     title: "Register",
+        // });
+        // return;
+        res.redirect('/register?error=confirm password is wrong')
     }
     check('name', 'Name is required!').notEmpty();
     check('email', 'Email is required!').isEmail();
@@ -74,24 +91,25 @@ exports.postRegister = async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        console.log("loi empty validation");
-        res.render('authentication/register', {
-            errors: errors,
-            title: 'Register',
-        });
+        // console.log("loi empty validation");
+        // res.render('authentication/register', {
+        //     errors: errors,
+        //     title: 'Register',
+        // });
+        res.redirect('/register?error=Something wrong, please try again');
+
     }
     else {
         const usernameFound = await userService.findByUsername(username);
-        // console.log("into create register");
         const emailFound = await userService.findByEmail(email);
 
         if (usernameFound || emailFound) {
-            console.log("Found\n" + JSON.stringify(usernameFound));
-            console.log("Found\n" + JSON.stringify(emailFound));
-            res.render('authentication/register', {
-                title: "Register",
-                errors: "Username or email existed",
-            });
+            
+            // res.render('authentication/register', {
+            //     title: "Register",
+            //     errors: "Username or email existed",
+            // });
+            res.redirect("/register?error=Username or email existed")
         }
         else {
             // const user = userService.createUser(name, email, phone, address, username, password);
@@ -100,7 +118,6 @@ exports.postRegister = async (req, res) => {
             // res.redirect('/login');
             try {
                 const passwordHash = await bcrypt.hash(password, 10);
-
                 const newUser = {
                     name, email, phone, username, password: passwordHash, address
                 }
@@ -108,10 +125,11 @@ exports.postRegister = async (req, res) => {
 
                 const url = `${CLIENT_URL}/activation/${activation_token}`
                 sendMail(email, url, "Verify your email address")
-
-                res.json({ msg: "Register Success! Please activate ur email to start." });
+                res.redirect("/register?error=Register Success! Please activate ur email to start.")
+                //res.json({ msg: "Register Success! Please activate ur email to start." });
             } catch (err) {
-                return res.status(500).json({ msg: err.message })
+                //return res.status(500).json({ msg: err.message })
+                res.redirect("/register?error=Something wrong, please try again")
             }
         }
     }
@@ -127,7 +145,8 @@ exports.activateEmail = async (req, res) => {
 
         const check = await userService.findByEmail(email);
         if(check) {
-            return res.status(400).json({msg: "This email already existed!"})
+            //return res.status(400).json({msg: "This email already existed!"})
+            res.redirect("/register?error=This email already existed")
         }
         
         // const userNew = await userService.createUser(name, email, phone, address, username, password);
@@ -140,10 +159,11 @@ exports.activateEmail = async (req, res) => {
 
         console.log("Account has been activated!")
         // res.json({msg: "Account has been activated!"})
-        res.redirect("/login?success=1")
-
+        //res.redirect("/login?success=1")
+        res.redirect("/login?mess=Account has been activated!")
     } catch (err) {
-        return res.status(500).json({msg: err.message})
+        //return res.status(500).json({msg: err.message})
+        res.redirect("/register?error=Something wrong, please try again")
     }
 }
 
@@ -153,7 +173,8 @@ exports.postForget = async (req, res) => {
 
         const user = await userService.findByEmail(email);
         if (!user){
-            res.redirect("/forget?flag=2");
+            //res.redirect("/forget?flag=2");
+            res.redirect("/forget?mess=This email does not exist.");
             // return res.status(400).json({ msg: "This email does not exist." })
         } 
 
@@ -162,10 +183,14 @@ exports.postForget = async (req, res) => {
 
         sendMail(email, url, "Reset your password")
         // res.json({ msg: "Reset the password, please check your email." })
-        res.redirect("/forget?flag=1");
+        //res.redirect("/forget?flag=1");
+
+        res.redirect("/forget?mess=Reset the password, please check your email.")
 
     } catch (err) {
-        return res.status(500).json({msg: err.message})
+        //return res.status(500).json({msg: err.message})
+        res.redirect("/forget?mess=Something wrong, please try again")
+
     }
 }
 
@@ -180,7 +205,8 @@ exports.resetPassword = async (req, res) => {
         res.redirect(url);
 
     } catch (err) {
-        return res.status(500).json({msg: err.message})
+        //return res.status(500).json({msg: err.message})
+        res.redirect('/forget?mess=something wrong, please try again')
     }
 }
 
@@ -199,13 +225,15 @@ exports.change = async (req, res) => {
         console.log("Password do not match");
         res.render('authentication/changePassword', {
             title: "changePassword",
-            userID: req.params.id
+            userID: req.params.id,
+            mess: "wrong confirm password"
         });
         return;
     }
 
     await userService.updatePassword(req.params.id, password);
-    res.redirect("/login?success=2");
+    //res.redirect("/login?success=2");
+    res.redirect("/login?mess=Reset password success")
 }
 
 const createActivationToken = (payload) => {

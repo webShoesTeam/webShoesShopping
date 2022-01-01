@@ -13,9 +13,19 @@ cloudinary.config({
   });
 
 exports.getProfile = (req, res) => {
+    let mess = req.query.mess !== undefined;
+    if (mess) {
+        mess = req.query.mess;
+    }
+    let success = req.query.success !== undefined;
+    if (success) {
+        success = req.query.success;
+    }
+
     res.render('profile', {
         title: "Profile",
-    
+        mess: mess,
+        success: success,
     })
 }
 
@@ -27,20 +37,23 @@ exports.updateImage = async (req, res) => {
     
     const form = formidable({});
     form.parse(req, async (err, fields, files) => {
-        
-        console.log("i'm here");
-        if (user) {
-            console.log("file: \n\n" + JSON.stringify(files));
-            console.log("field: \n\n" + JSON.stringify(fields));
-            cloudinary.uploader.upload(files.image.filepath, { public_id: `user/${user._id}/${user.username}`,overwrite: true, width: 192, height: 192, crop: "scale", fetch_format: "jpg"})
-            
-            const newLink = "https://res.cloudinary.com/dgci6plhk/image/upload/user/" + user._id + "/" + user.username + ".jpg";
-            //const newLink = "https://res.cloudinary.com/mernteam/image/upload/v1638468308/mern/users/" + user._id + "/" + user.nameImage + ".jpg"
-            userService.updateImage(newLink, id);
-            
-            res.redirect('/users/profile');
+        if (files.image.originalFilename) {
+            console.log("i'm here");
+            if (user) {
+                console.log("file: \n\n" + JSON.stringify(files));
+                console.log("field: \n\n" + JSON.stringify(fields));
+                let newLink;
+                await cloudinary.uploader.upload(files.image.filepath, { public_id: `user/${user._id}/${files.image.newFilename}`,overwrite: true, width: 192, height: 192, crop: "scale", fetch_format: "jpg"}, function(err, result) {
+                    newLink = result.url;
+                })
+                
+                //const newLink = "https://res.cloudinary.com/dgci6plhk/image/upload/user/" + user._id + "/" + user.username + ".jpg";
+                //const newLink = "https://res.cloudinary.com/mernteam/image/upload/v1638468308/mern/users/" + user._id + "/" + user.nameImage + ".jpg"
+                await userService.updateImage(newLink, id);
+                
+                res.redirect('/users/profile?success=update image successful');
+            }
         }
-        
         // // res.redirect('/users/profile');
         // console.log("file: \n\n" + JSON.stringify(files));
         // console.log("field: \n\n" + JSON.stringify(fields));
@@ -66,7 +79,7 @@ exports.saveUpdate = async (req, res) => {
 
     
     if (password2 != password) {
-        res.redirect('/users/profile?wrong-passconfirm');
+        res.redirect('/users/profile?mess=wrong pass confirm');
     }
     const isRightPass = await userService.validPassword(password, req.user);
 
@@ -112,7 +125,7 @@ exports.saveUpdate = async (req, res) => {
 
     if (!errors.isEmpty()) {
         console.log("loi empty validation");
-        res.redirect("/users/profile");
+        res.redirect("/users/profile?mess=something wrong, please try again");
     }
     else {
         const usernameFound = await userService.findByUsername(username);
@@ -138,9 +151,9 @@ exports.saveUpdate = async (req, res) => {
                 await userService.updateUser(id, name, email, phone, address, username, password);
                 //console.log("body: \n" + JSON.stringify(req.body));
                 // res.locals.messages = "Update successfull"
-                res.redirect('/users/profile');
+                res.redirect('/users/profile?success=update successful');
             } catch (Exception) {
-                res.redirect('/users/profile');
+                res.redirect('/users/profile?mess=something wrong');
             }
         }
 
@@ -154,12 +167,16 @@ exports.updatePassword = async (req, res) => {
     const newPass = await req.body.password;
     const newPass2 = await req.body.password2;
     
+    if (newPass !== newPass2) {
+        res.redirect('/users/profile?mess=wrong pass confirm');
+    }
+
     const user = await userService.findById(id);
     if(await bcrypt.compare(oldPass, user.password)) {
         await userService.updatePassword(id, newPass);
-        res.redirect("/users/profile");
+        res.redirect("/users/profile?success=password is updated");
     }
     else {
-        res.redirect('/users/profile?wrong-oldPassword');
+        res.redirect('/users/profile?mess=Password does not change: wrong old password');
     }
 };
