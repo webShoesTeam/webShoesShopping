@@ -43,7 +43,7 @@ exports.postLogin = function (req, res, next) {
         // successRedirect: "/?fl=1",
         // failureRedirect: `/login?success=3&username=${req.body.username}`,
         successRedirect: "/",
-        failureRedirect: `/login?mess=username or password incorrect`,
+        failureRedirect: `/login?mess=username or password is incorrect`,
     })(req, res, next);
 };
 
