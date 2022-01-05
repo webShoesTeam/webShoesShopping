@@ -83,15 +83,18 @@ exports.saveUpdate = async (req, res) => {
         res.redirect('/users/profile?mess=wrong pass confirm');
     }
     const isRightPass = await userService.validPassword(password, req.user);
-
-
-    if(password !== password2) {
-        console.log("Password do not match");               
-            res.render('profile', {
-                title: "profile", 
-            });
-            return;
+    // right pass --> ?
+    if (!isRightPass) {
+        res.redirect('/users/profile?mess=wrong password');
     }
+
+    // if(password !== password2) {
+    //     console.log("Password do not match");               
+    //         res.render('profile', {
+    //             title: "profile", 
+    //         });
+    //         return;
+    // }
     
     check('name', 'Name is required!').notEmpty();
     check('email', 'Email is required!').isEmail();
