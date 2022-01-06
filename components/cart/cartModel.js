@@ -1,9 +1,9 @@
 module.exports = function Cart(oldCart) {
-   
+
     this.items = oldCart.items || {};
     this.totalItems = oldCart.totalItems || Number(0);
     this.totalMoney = oldCart.totalMoney || Number(0);
-   
+
     this.add = function(newItem, id, quantity) {
         var cartItem = this.items[id];
         if (!cartItem) {
