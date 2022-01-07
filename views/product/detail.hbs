@@ -121,7 +121,9 @@
         {{#each comments}}
         <div class="be-comment">
             <div class="be-img-comment">
-                <img src="https://res.cloudinary.com/dgci6plhk/image/upload/user/{{this.userID}}/{{this.username}}.jpg" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">	
+                {{!-- <img src="https://res.cloudinary.com/dgci6plhk/image/upload/user/{{this.userID}}/{{this.username}}.jpg" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">	 --}}
+                <img src="{{this.image}}" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">	
+                
                 {{!-- <a href="blog-detail-2.html">
                     <img src="/users/update_avt/{{this.userID}}" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">
                 </a> --}}

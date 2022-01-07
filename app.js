@@ -33,9 +33,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req, res, next) {
-  console.log('in use local')
+  // console.log('in use local')
   res.locals.user = req.user;
-  console.log("local: \n" + JSON.stringify(res.locals));
+  // console.log("local: \n" + JSON.stringify(res.locals));
   req.session.cart = new Cart(req.session.cart ? req.session.cart : {});
   res.locals.session = req.session;
 

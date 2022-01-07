@@ -5,7 +5,7 @@ const userService = require('../components/user/userService');
 
 passport.use(new LocalStrategy(
     async function(username, password, done) {      
-        console.log("into passport localStrategy");
+        // console.log("into passport localStrategy");
         
         const user = await userService.findByUsername(username);
         
@@ -18,7 +18,7 @@ passport.use(new LocalStrategy(
         }
 
         const isValid = await userService.validPassword(password, user);
-        console.log("\n\n\nisValid: " + isValid)
+        // console.log("\n\n\nisValid: " + isValid)
         if (!isValid) {
             return done(null, false, {message: 'Incorrect password'});
         }

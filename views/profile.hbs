@@ -9,7 +9,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <head>
-  <title>Bootstrap Example</title>
+  <title>Profile</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -40,7 +40,7 @@
                     <button class="btn btn-sml btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button> --}}
             
                 <label for="uploadimage" class="btn btn-secondary" style="background-color: gray;">Choose file</label>                                             
-                <input id="uploadimage" name="image" class="text-center center-block file-upload" type="file" style="display:none;">
+                <input id="uploadimage" name="image" class="text-center center-block file-upload" type="file" accept="image/png, image/jpg, image/jpeg" onchange="validateFileType()" style="display:none;">
                 <button id="updatebtn" class="btn-sm btn-success" type="submit">Update</button>
                 
             </form>
@@ -52,12 +52,8 @@
               
               <ul class="list-group">
                 <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-                <li class="list-group-item text-right"><span class="pull-left"><a href="/cart"><strong> Cart</strong></a></span> 2</li>
-                <li class="list-group-item text-right"><span class="pull-left"><a href="/checkout"><strong> Checkout</strong></a></span> 2</li>
-                <li class="list-group-item text-right"><span class="pull-left"><a href="/bill/history"><strong> History Bill</strong></a></span> 2</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+                <li class="list-group-item text-right"><span class="pull-left"><a href="/cart"><strong> Cart</strong></a></span></li>
+                <li class="list-group-item text-right"><span class="pull-left"><a href="/bill/history"><strong> History Bill</strong></a></span></li>
               </ul> 
                    
               
@@ -276,3 +272,17 @@
 
     
 </script>
+    <script type="text/javascript">
+        function validateFileType(){
+            var fileName = document.getElementById("uploadimage").value;
+            var idxDot = fileName.lastIndexOf(".") + 1;
+            var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+            if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+                //TO DO
+            }else{
+                alert("Only jpg/jpeg and png files are allowed!");
+                var inputFile = document.getElementById("uploadimage");
+                inputFile.value = "";
+            }   
+        }
+    </script>

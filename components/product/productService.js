@@ -2,7 +2,7 @@
 const Product = require('../../models/productModel');
 
 const Comment = require('../../models/Comment')
-
+const userService = require('../user/userService')
 exports.list = (page,perPage,sort,search) => {
     return Product.find( {name: { $regex: search }})
     .skip((perPage * page) - perPage)
@@ -74,12 +74,27 @@ exports.postComment = (username,productID,content,userID,image) =>{
     }).save();
 }
 
-exports.getProductWithComment = (id,page,perPage)=> {
-    return Comment.find({productID: id})
+exports.getProductWithComment = async (id,page,perPage)=> {
+    // return Comment.find({productID: id})
+    // .sort({'createAt': -1})
+    // .skip((perPage * page) - perPage)
+
+    // .limit(perPage)
+
+    const comments = await Comment.find({productID: id})
     .sort({'createAt': -1})
     .skip((perPage * page) - perPage)
 
     .limit(perPage)
+
+    for(i=0;i<comments.length;i++){
+        const user = await userService.findById(comments[i].userID);
+        if (user) {
+            comments[i].username = user.username;
+            comments[i].image = user.image;
+        }
+    };
+    return comments;
 }
 
 exports.findById = async (id) =>{
@@ -95,8 +110,8 @@ exports.updateView = async (product) => {
     } else {
         product.view = 1;
     }
-    console.log("view before: " + product.view);
+    //console.log("view before: " + product.view);
     await product.save();
-    console.log("view after: " + product.view);
+    //console.log("view after: " + product.view);
     return product;
 }

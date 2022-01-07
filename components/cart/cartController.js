@@ -14,10 +14,10 @@ exports.getCart = function(req, res) {
             title: "Cart",
         })
     } else {
-        console.log("session:\n" + JSON.stringify(req.session));
-        console.log("session cart:\n" + JSON.stringify(req.session.cart));
+        // console.log("session:\n" + JSON.stringify(req.session));
+        // console.log("session cart:\n" + JSON.stringify(req.session.cart));
         const cart = new Cart(req.session.cart);
-        console.log("\ncart:\n" + JSON.stringify(cart));
+        // console.log("\ncart:\n" + JSON.stringify(cart));
         return res.render('cart', {
             title: "Cart",
             //cart: cart.getAllItems(), 
@@ -32,14 +32,14 @@ exports.addItem = async function(req, res, next) {
     const productId = req.body.id;
     const quantity = Number(req.body.quantity);
 
-    console.log("\nid: " + productId);
-    console.log("req.body: \n" + JSON.stringify(req.body));
+    // console.log("\nid: " + productId);
+    // console.log("req.body: \n" + JSON.stringify(req.body));
 
     var cart = new Cart(req.session.cart ? req.session.cart : {});
     const product = await productService.findById(productId);
     cart.add(product, productId, quantity);
     req.session.cart = cart;
-    console.log("session.cart: " + JSON.stringify(req.session.cart));
+    // console.log("session.cart: " + JSON.stringify(req.session.cart));
     res.redirect('/product/detail/' + productId);
     //res.send(cart);
     //res.status(201).json(cart);
