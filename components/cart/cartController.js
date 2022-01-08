@@ -73,8 +73,14 @@ exports.removeItem = function(req, res, next) {
 };
 
 exports.getCheckout = async function(req, res) {
-
-    res.render('checkout', { title: 'checkout' });
+    let error = req.query.message || undefined;
+    if (error) {
+        error = req.query.message;
+    }
+    res.render('checkout', { 
+        title: 'checkout',
+        error: error, 
+    });
 }
 
 
@@ -92,7 +98,7 @@ exports.postCheckout = async function(req, res) {
     const cart = new Cart(req.session.cart ? req.session.cart : {});
 
     if (cart.totalItems == 0) {
-        redirect('cart/checkout?message=cart is empty');
+        res.redirect('/cart/checkout?message=cart is empty');
     }
 
     let bill = {};
@@ -107,16 +113,19 @@ exports.postCheckout = async function(req, res) {
     bill.subtotal = cart.totalMoney;
     bill.total = cart.totalMoney;
     // bill.total = Math.max(total - promotion.value + ship, 0);
-
+    if (bill.userId=="" || bill.userName=="" || bill.email=="" || bill.address=="" || bill.phone=="" || bill.products=="" || bill.subtotal=="" || bill.total=="") {
+        res.redirect('/cart/checkout?message=please fill entire the information');
+    }
     // bill = await Bill.create(bill);
-    
-    req.session.cart = new Cart({});
-    const newBill = await billService.createNewBill(bill);
-    // console.log("\n\nBill: " + JSON.stringify(newBill));
-    // res.render('bill', {
-    //     title: 'Billing',
-    //     bill: newBill,
-    // });
-    
-    res.redirect('/bill/detail/' + newBill._id);
+    else {
+        req.session.cart = new Cart({});
+        const newBill = await billService.createNewBill(bill);
+        // console.log("\n\nBill: " + JSON.stringify(newBill));
+        // res.render('bill', {
+        //     title: 'Billing',
+        //     bill: newBill,
+        // });
+        
+        res.redirect('/bill/detail/' + newBill._id);
+    }
 };

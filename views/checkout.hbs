@@ -10,11 +10,15 @@
     <div class="container">
     <div class="row mb-5">
         <div class="col-md-12">
-        <div class="border p-4 rounded" role="alert">
-            Returning customer? <a href="/login">Click here</a> to login
-        </div>
+            <div class="border p-4 rounded" role="alert">
+                Returning customer? <a href="/login">Click here</a> to login
+            </div>
         </div>
     </div>
+    {{#if error}}
+    <div style="color: red;">{{error}}</div>
+    <br>
+    {{/if}}
     <form action="/cart/checkout" method="post">
         <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">

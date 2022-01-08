@@ -40,12 +40,29 @@ exports.forget = (req, res) => {
 };
 
 exports.postLogin = function (req, res, next) {
+
+    var prev = req.query.redirect;
+    console.log("redirect: " + prev);
+    if (typeof prev === 'undefined') {
+        prev = '/'
+    } else {
+        prev = '/' + prev;
+    }
+    console.log("redirect: " + prev);
     passport.authenticate('local', {
-        // successRedirect: "/?fl=1",
-        // failureRedirect: `/login?success=3&username=${req.body.username}`,
-        successRedirect: "/",
-        failureRedirect: `/login?mess=username or password is incorrect`,
+        // successRedirect: '/',
+        successRedirect: prev,
+        failureRedirect: '/users/login?error=username or password is wrong',
+        failureFlash: true
     })(req, res, next);
+
+
+    // passport.authenticate('local', {
+    //     // successRedirect: "/?fl=1",
+    //     // failureRedirect: `/login?success=3&username=${req.body.username}`,
+    //     successRedirect: "/",
+    //     failureRedirect: `/login?mess=username or password is incorrect`,
+    // })(req, res, next);
 };
 
 exports.getLogout = (req, res) => {
