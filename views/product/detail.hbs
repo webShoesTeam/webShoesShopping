@@ -19,7 +19,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{products.id}}/{{products.nameImage}}" alt="Image" class="img-fluid">
+                {{!-- <img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{products.id}}/{{products.nameImage}}" alt="Image" class="img-fluid"> --}}
+                <img src="{{products.nameImage}}" alt="Image" class="img-fluid">
                 
                 <div class="block-3 site-blocks-2 bg-light">
                     <div class="container">   
@@ -165,7 +166,8 @@
 <script id= "comment-template" type="text/x-handlebars"> 
     <div class="be-comment">
         <div class="be-img-comment">
-            <img src="https://res.cloudinary.com/dgci6plhk/image/upload/user/\{{userID}}/\{{username}}.jpg" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">	
+            {{!-- <img src="https://res.cloudinary.com/dgci6plhk/image/upload/user/\{{userID}}/\{{username}}.jpg" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">	 --}}
+            <img src="\{{image}}" alt=""  onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar1.png'" class="be-ava-comment">	
         </div>
         <div class="be-comment-content">
             
@@ -267,7 +269,8 @@
             <div class="item">
             <div class="block-4 text-center">
                 <figure class="block-4-image">
-                <a href="/product/detail/{{this.id}}?page=1&category={{this.category}}"><img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{this.id}}/{{this.nameImage}}"  alt="Image placeholder" class="img-fluid"></a>
+                {{!-- <a href="/product/detail/{{this.id}}?page=1&category={{this.category}}"><img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{this.id}}/{{this.nameImage}}"  alt="Image placeholder" class="img-fluid"></a> --}}
+                <a href="/product/detail/{{this.id}}?page=1&category={{this.category}}"><img src="{{this.nameImage}}" alt="Image placeholder" class="img-fluid"></a>
                 </figure>
                 <div class="block-4-text p-4">
                 <h3><a href="/product/detail/{{this.id}}?page=1&category={{this.category}}">{{this.name}}</a></h3>

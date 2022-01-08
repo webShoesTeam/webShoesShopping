@@ -45,7 +45,9 @@
               <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                 <div class="block-4 text-center border">
                   <figure class="block-4-image">
-                    <a href="/product/detail/{{this.id}}?page=1&category={{this.category}}"><img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{this.id}}/{{this.nameImage}}" alt="Image placeholder" class="img-fluid"></a>
+                    {{!-- <a href="/product/detail/{{this.id}}?page=1&category={{this.category}}"><img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{this.id}}/{{this.nameImage}}" alt="Image placeholder" class="img-fluid"></a> --}}
+                    <a href="/product/detail/{{this.id}}?page=1&category={{this.category}}"><img src="{{this.nameImage}}" alt="Image placeholder" class="img-fluid"></a>
+                  
                   </figure>
                   <div class="block-4-text p-4">
                     <h3><a href="/product/detail/{{this.id}}?page=1&category={{this.category}}">{{this.name}}</a></h3>
@@ -78,7 +80,9 @@
             <div class="border p-4 rounded mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
               <ul class="list-unstyled mb-0" id="category-list">
-                <li class="mb-1"><a id="category-All" href = "" value="all" class="d-flex"><span>All Product</span> <span class="text-black ml-auto"></span></a></li>
+                <li class="mb-1"><a href = "/product" class="d-flex"><span>List all product</span> <span class="text-black ml-auto"></span></a></li>
+                {{!-- <li class="mb-1"><a href = "/product" value="all" class="d-flex"><span>All Product</span> <span class="text-black ml-auto"></span></a></li> --}}
+                <li class="mb-1"><a id="category-All" href = "" value="all" class="d-flex"><span>All product query</span> <span class="text-black ml-auto"></span></a></li>
                 <li class="mb-1"><a id="category-men"  href = "" value="Men" class="d-flex"><span>Men</span> <span class="text-black ml-auto"></span></a></li>
                 <li class="mb-1"><a id="category-women"  href = "" value="Women" class="d-flex"><span>Women</span> <span class="text-black ml-auto"></span></a></li>
                 <li class="mb-1"><a id="category-children"  href = "" value="Children" class="d-flex"><span>Children</span> <span class="text-black ml-auto"></span></a></li>
