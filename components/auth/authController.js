@@ -20,6 +20,7 @@ exports.login = (req, res) => {
     if (success) {
         success = req.query.success;
     }
+  
     res.render('authentication/login', {
         title: "Login",
         success: success,
@@ -48,12 +49,12 @@ exports.postLogin = function (req, res, next) {
     } else {
         prev = '/' + prev;
     }
-    console.log("redirect: " + prev);
+    // console.log("redirect: " + prev);
     passport.authenticate('local', {
         // successRedirect: '/',
         successRedirect: prev,
-        failureRedirect: '/users/login?error=username or password is wrong',
-        failureFlash: true
+        failureRedirect: '/login?mess=username or password is wrong',
+        // failureFlash: true
     })(req, res, next);
 
 
