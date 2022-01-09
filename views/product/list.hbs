@@ -17,22 +17,10 @@
                 <div class="float-md-left mb-4"><h2 class="text-black h5">Shop All</h2></div>
                 <div class="d-flex">
                   <div class="dropdown mr-1 ml-md-auto">
-                    {{!-- <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Latest
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                      <a class="dropdown-item" href="#">Men</a>
-                      <a class="dropdown-item" href="#">Women</a>
-                      <a class="dropdown-item" href="#">Children</a>
-                    </div> --}}
                   </div>
                   <div class="btn-group">
                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Reference</button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                      {{!-- <a class="dropdown-item" href="#">Relevance</a> --}}
-                      {{!-- <a class="dropdown-item" href="#">Name, A to Z</a>
-                      <a class="dropdown-item" href="#">Name, Z to A</a>
-                      <div class="dropdown-divider"></div> --}}
                       <a class="dropdown-item" id="Price-ascending" href="#">Price, low to high</a>
                       <a class="dropdown-item" id="Price-descending" href="#">Price, high to low</a>
                     </div>
@@ -45,9 +33,7 @@
               <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                 <div class="block-4 text-center border">
                   <figure class="block-4-image">
-                    {{!-- <a href="/product/detail/{{this.id}}?page=1&category={{this.category}}"><img src="https://res.cloudinary.com/dgci6plhk/image/upload/images/{{this.id}}/{{this.nameImage}}" alt="Image placeholder" class="img-fluid"></a> --}}
                     <a href="/product/detail/{{this.id}}?page=1&category={{this.category}}"><img src="{{this.nameImage}}" alt="Image placeholder" class="img-fluid"></a>
-                  
                   </figure>
                   <div class="block-4-text p-4">
                     <h3><a href="/product/detail/{{this.id}}?page=1&category={{this.category}}">{{this.name}}</a></h3>
@@ -81,7 +67,6 @@
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
               <ul class="list-unstyled mb-0" id="category-list">
                 <li class="mb-1"><a href = "/product" class="d-flex"><span>List all product</span> <span class="text-black ml-auto"></span></a></li>
-                {{!-- <li class="mb-1"><a href = "/product" value="all" class="d-flex"><span>All Product</span> <span class="text-black ml-auto"></span></a></li> --}}
                 <li class="mb-1"><a id="category-All" href = "" value="all" class="d-flex"><span>All product query</span> <span class="text-black ml-auto"></span></a></li>
                 <li class="mb-1"><a id="category-men"  href = "" value="Men" class="d-flex"><span>Men</span> <span class="text-black ml-auto"></span></a></li>
                 <li class="mb-1"><a id="category-women"  href = "" value="Women" class="d-flex"><span>Women</span> <span class="text-black ml-auto"></span></a></li>
