@@ -276,7 +276,6 @@ jQuery(document).ready(function($) {
 		const productid = $("#product-id").val();
 		var page = $(this).attr("href");
 		if(page != "null") {
-			console.log(page)
 			$.get(`/product/commentAPI/${productid}/${page}`,function (data){
 				$('#comment-list').empty()
 				for(i = 0 ; i < data.length-2;i++){
