@@ -4,7 +4,6 @@ search.addEventListener("keyup", function(event) {
   if (event.keyCode == 13) {
     event.preventDefault();
     search.placeholder = inputTextValue
-    console.log(search)
     if(window.location.href.search("page") == -1){
       if(window.location.href.search("/product") != -1){
         window.location.href = window.location.href + "?page=1&search=" + inputTextValue;
@@ -26,7 +25,14 @@ search.addEventListener("keyup", function(event) {
         window.location.href = str + "&search=" + inputTextValue + strEnd;
       }
       else{
-        window.location.href = window.location.href + "&search=" + inputTextValue;
+        if(window.location.href.search("/detail") != -1){
+          detail = window.location.href.substring(window.location.href.search("/detail"),window.location.href.search("page") - 1)
+          window.location.href = window.location.href.replace(detail,"") + "&search=" + inputTextValue;
+        }
+        else{
+          window.location.href = window.location.href + "&search=" + inputTextValue;
+        }
+
       }
     }
   }
