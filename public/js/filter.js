@@ -92,7 +92,7 @@ function addeventSize(arr){
 }
 
 
-const arrayCategory = ["Men","Children","Women"]
+const arrayCategory = ["Men","Kid","Women"]
 
 function addEventCategory(categoryiD){
   const temp =  document.getElementById(categoryiD)
@@ -148,8 +148,8 @@ allproduct.addEventListener('click',function(){
     if(window.location.href.search(`&category=Men`) != -1){
       allproduct.href = window.location.href.replace("&category=Men","");
     }
-    if(window.location.href.search(`&category=Children`) != -1){
-      allproduct.href = window.location.href.replace("&category=Children","");
+    if(window.location.href.search(`&category=Kid`) != -1){
+      allproduct.href = window.location.href.replace("&category=Kid","");
     }
 })
 
